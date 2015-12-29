@@ -12,6 +12,7 @@ class StackSpec extends Specification {
         stack                   || dummy
         new FixedArrayStack(2)  || ""
         new DynamicArrayStack() || ""
+        new LinkedStack()       || ""
     }
 
     def "Last item pushed onto stack is the first item popped"() {
@@ -27,6 +28,7 @@ class StackSpec extends Specification {
         stack                   || dummy
         new FixedArrayStack(2)  || ""
         new DynamicArrayStack() || ""
+        new LinkedStack()       || ""
     }
 
     def "Peeking does not remove item off the stack"() {
@@ -42,6 +44,7 @@ class StackSpec extends Specification {
         stack                   || dummy
         new FixedArrayStack(2)  || ""
         new DynamicArrayStack() || ""
+        new LinkedStack()       || ""
     }
 
     def "Popping empty stack throws exception"() {
@@ -55,6 +58,7 @@ class StackSpec extends Specification {
         stack                   || dummy
         new FixedArrayStack(2)  || ""
         new DynamicArrayStack() || ""
+        new LinkedStack()       || ""
     }
 
     def "Peeking empty stack throws exception"() {
@@ -68,5 +72,6 @@ class StackSpec extends Specification {
         stack                   || dummy
         new FixedArrayStack(2)  || ""
         new DynamicArrayStack() || ""
+        new LinkedStack()       || ""
     }
 }
