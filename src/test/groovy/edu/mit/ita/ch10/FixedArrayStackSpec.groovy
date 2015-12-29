@@ -5,11 +5,11 @@ import spock.lang.Specification
 class FixedArrayStackSpec extends Specification {
     def "Fixed array stack throws on push when full"() {
         given: "a full stack"
-        Stack<String> names = new FixedArrayStack(1);
-        names.push("Johny")
+        Stack<String> stack = new FixedArrayStack(1);
+        stack.push("Johny")
 
         when: "an item is pushed onto the stack"
-        names.push("Manny")
+        stack.push("Manny")
 
         then: "an exception is thrown"
         thrown IllegalStateException

@@ -4,59 +4,69 @@ import spock.lang.Specification
 
 class StackSpec extends Specification {
     def "A new stack starts empty"() {
-        given:
-        Stack<String> names = new FixedArrayStack<>(2);
-
         expect:
-        names.isEmpty()
-        names.size() == 0
+        stack.isEmpty()
+        stack.size() == 0
+
+        where:
+        stack                   || dummy
+        new FixedArrayStack(2)  || ""
+        new DynamicArrayStack() || ""
     }
 
     def "Last item pushed onto stack is the first item popped"() {
-        given:
-        Stack<String> names = new FixedArrayStack<>(2);
-
         when:
-        names.push("Johny")
-        names.push("Manny")
+        stack.push("Johny")
+        stack.push("Manny")
 
         then:
-        names.pop() == "Manny"
-        names.size() == 1
+        stack.pop() == "Manny"
+        stack.size() == 1
+
+        where:
+        stack                   || dummy
+        new FixedArrayStack(2)  || ""
+        new DynamicArrayStack() || ""
     }
 
     def "Peeking does not remove item off the stack"() {
-        given:
-        Stack<String> names = new FixedArrayStack<>(2);
-
         when:
-        names.push("Johny")
-        names.push("Manny")
+        stack.push("Johny")
+        stack.push("Manny")
 
         then:
-        names.peek() == "Manny"
-        names.size() == 2
+        stack.peek() == "Manny"
+        stack.size() == 2
+
+        where:
+        stack                   || dummy
+        new FixedArrayStack(2)  || ""
+        new DynamicArrayStack() || ""
     }
 
     def "Popping empty stack throws exception"() {
-        given:
-        Stack<String> names = new FixedArrayStack<>(2);
-
         when:
-        names.pop()
+        stack.pop()
 
         then:
         thrown IllegalStateException
+
+        where:
+        stack                   || dummy
+        new FixedArrayStack(2)  || ""
+        new DynamicArrayStack() || ""
     }
 
     def "Peeking empty stack throws exception"() {
-        given:
-        Stack<String> names = new FixedArrayStack<>(2);
-
         when:
-        names.peek()
+        stack.peek()
 
         then:
         thrown IllegalStateException
+
+        where:
+        stack                   || dummy
+        new FixedArrayStack(2)  || ""
+        new DynamicArrayStack() || ""
     }
 }

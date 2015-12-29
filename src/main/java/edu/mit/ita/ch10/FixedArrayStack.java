@@ -22,8 +22,7 @@ public class FixedArrayStack<T> implements Stack<T> {
     @Override
     public T pop() {
         T element = peek();
-        top--;
-
+        elements[top--] = null;
         return element;
     }
 
