@@ -2,7 +2,7 @@ package edu.mit.ita.ch10
 
 import spock.lang.Specification
 
-class FixedArrayStackTest extends Specification {
+class FixedArrayStackSpec extends Specification {
     def "Fixed array stack throws on push when full"() {
         given: "a full stack"
         Stack<String> names = new FixedArrayStack(1);
