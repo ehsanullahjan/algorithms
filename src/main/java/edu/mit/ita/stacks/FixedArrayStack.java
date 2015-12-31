@@ -1,4 +1,6 @@
-package edu.mit.ita.ch10;
+package edu.mit.ita.stacks;
+
+import edu.mit.ita.adt.Stack;
 
 public class FixedArrayStack<T> implements Stack<T> {
     private final T[] elements;

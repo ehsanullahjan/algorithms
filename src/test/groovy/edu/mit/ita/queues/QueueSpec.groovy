@@ -1,5 +1,6 @@
-package edu.mit.ita.ch10
+package edu.mit.ita.queues
 
+import edu.mit.ita.queues.FixedArrayQueue
 import spock.lang.Specification
 import spock.lang.Unroll
 

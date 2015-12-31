@@ -1,4 +1,4 @@
-package edu.mit.ita.ch02;
+package edu.mit.ita.sorting;
 
 public class SortMethods {
     private SortMethods() {

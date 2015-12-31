@@ -1,4 +1,4 @@
-package edu.mit.ita.ch10;
+package edu.mit.ita.adt;
 
 public interface Queue<T> {
     void enqueue(T element);

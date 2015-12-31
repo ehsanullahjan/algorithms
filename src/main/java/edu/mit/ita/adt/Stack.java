@@ -1,4 +1,4 @@
-package edu.mit.ita.ch10;
+package edu.mit.ita.adt;
 
 public interface Stack<T> {
     void push(T element);

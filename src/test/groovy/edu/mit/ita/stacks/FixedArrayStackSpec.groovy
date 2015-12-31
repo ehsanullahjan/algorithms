@@ -1,5 +1,6 @@
-package edu.mit.ita.ch10
+package edu.mit.ita.stacks
 
+import edu.mit.ita.adt.Stack
 import spock.lang.Specification
 
 class FixedArrayStackSpec extends Specification {

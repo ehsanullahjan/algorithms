@@ -1,4 +1,4 @@
-package edu.mit.ita.ch10
+package edu.mit.ita.stacks
 
 import spock.lang.Specification
 

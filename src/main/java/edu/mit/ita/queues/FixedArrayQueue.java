@@ -1,4 +1,6 @@
-package edu.mit.ita.ch10;
+package edu.mit.ita.queues;
+
+import edu.mit.ita.adt.Queue;
 
 public class FixedArrayQueue<T> implements Queue<T> {
     private final T[] elements;
