@@ -2,14 +2,14 @@ package edu.mit.ita.ch10;
 
 public class ArrayQueue<T> implements Queue<T> {
     private final T[] elements;
+    private int front;
     private int size;
-    private int head;
 
     @SuppressWarnings("unchecked")
     public ArrayQueue(int capacity) {
         this.elements = (T[])new Object[capacity];
+        this.front = 0;
         this.size = 0;
-        this.head = 0;
     }
 
     @Override
@@ -18,16 +18,16 @@ public class ArrayQueue<T> implements Queue<T> {
             throw new IllegalStateException("Queue overflow");
         }
 
-        int tail = (head + size) % elements.length;
-        elements[tail] = element;
+        int back = (front + size) % elements.length;
+        elements[back] = element;
         size++;
     }
 
     @Override
     public T dequeue() {
         T element = peek();
-        elements[head] = null;
-        head = (head + 1) % elements.length;
+        elements[front] = null;
+        front = (front + 1) % elements.length;
         size--;
 
         return element;
@@ -39,7 +39,7 @@ public class ArrayQueue<T> implements Queue<T> {
             throw new IllegalStateException("Queue underflow");
         }
 
-        return elements[head];
+        return elements[front];
     }
 
     @Override
