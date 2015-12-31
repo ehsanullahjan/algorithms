@@ -4,14 +4,12 @@ public class ArrayQueue<T> implements Queue<T> {
     private final T[] elements;
     private int size;
     private int head;
-    private int tail;
 
     @SuppressWarnings("unchecked")
     public ArrayQueue(int capacity) {
         this.elements = (T[])new Object[capacity];
         this.size = 0;
         this.head = 0;
-        this.tail = 0;
     }
 
     @Override
@@ -20,8 +18,8 @@ public class ArrayQueue<T> implements Queue<T> {
             throw new IllegalStateException("Queue overflow");
         }
 
+        int tail = (head + size) % elements.length;
         elements[tail] = element;
-        tail = (tail + 1) % elements.length;
         size++;
     }
 
