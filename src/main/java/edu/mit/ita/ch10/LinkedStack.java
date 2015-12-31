@@ -41,6 +41,14 @@ public class LinkedStack<T> implements Stack<T> {
         return size == 0;
     }
 
+    private Node<T> peek0() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Stack underflow");
+        }
+
+        return head.next;
+    }
+
     private static class Node<T> {
         final T element;
         Node<T> next;
@@ -52,13 +60,5 @@ public class LinkedStack<T> implements Stack<T> {
         static <T> Node<T> empty() {
             return new Node<>(null);
         }
-    }
-
-    private Node<T> peek0() {
-        if (isEmpty()) {
-            throw new IllegalStateException("Stack underflow");
-        }
-
-        return head.next;
     }
 }
