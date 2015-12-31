@@ -1,12 +1,12 @@
 package edu.mit.ita.ch10;
 
-public class ArrayQueue<T> implements Queue<T> {
+public class FixedArrayQueue<T> implements Queue<T> {
     private final T[] elements;
     private int front;
     private int size;
 
     @SuppressWarnings("unchecked")
-    public ArrayQueue(int capacity) {
+    public FixedArrayQueue(int capacity) {
         this.elements = (T[])new Object[capacity];
         this.front = 0;
         this.size = 0;

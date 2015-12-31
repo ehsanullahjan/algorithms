@@ -11,8 +11,8 @@ class QueueSpec extends Specification {
         queue.size() == 0
 
         where:
-        queue                      || dummy
-        new ArrayQueue<String>(16) || ""
+        queue                           || dummy
+        new FixedArrayQueue<String>(16) || ""
     }
 
     def "First item enqueued is the first item dequeued"() {
@@ -25,8 +25,8 @@ class QueueSpec extends Specification {
         queue.size() == 1
 
         where:
-        queue                      || dummy
-        new ArrayQueue<String>(16) || ""
+        queue                           || dummy
+        new FixedArrayQueue<String>(16) || ""
     }
 
     def "Peeking does not remove item off the queue"() {
@@ -39,8 +39,8 @@ class QueueSpec extends Specification {
         queue.size() == 2
 
         where:
-        queue                      || dummy
-        new ArrayQueue<String>(16) || ""
+        queue                           || dummy
+        new FixedArrayQueue<String>(16) || ""
     }
 
     def "Dequeue on empty queue throws exception"() {
@@ -51,8 +51,8 @@ class QueueSpec extends Specification {
         thrown IllegalStateException
 
         where:
-        queue                      || dummy
-        new ArrayQueue<String>(16) || ""
+        queue                           || dummy
+        new FixedArrayQueue<String>(16) || ""
     }
 
     def "Peeking empty queue throws exception"() {
@@ -63,7 +63,7 @@ class QueueSpec extends Specification {
         thrown IllegalStateException
 
         where:
-        queue                      || dummy
-        new ArrayQueue<String>(16) || ""
+        queue                           || dummy
+        new FixedArrayQueue<String>(16) || ""
     }
 }
