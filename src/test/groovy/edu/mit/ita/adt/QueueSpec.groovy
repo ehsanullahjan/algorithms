@@ -7,7 +7,7 @@ import spock.lang.Unroll
 abstract class QueueSpec extends Specification {
     def "A new queue starts empty"() {
         given:
-        Queue<String> queue = newQueue(16)
+        Queue<String> queue = newQueue()
 
         expect:
         queue.isEmpty()
@@ -16,7 +16,7 @@ abstract class QueueSpec extends Specification {
 
     def "First item enqueued is the first item dequeued"() {
         given:
-        Queue<String> queue = newQueue(16)
+        Queue<String> queue = newQueue()
 
         when:
         queue.enqueue("Johny")
@@ -29,7 +29,7 @@ abstract class QueueSpec extends Specification {
 
     def "Peeking does not remove item off the queue"() {
         given:
-        Queue<String> queue = newQueue(16)
+        Queue<String> queue = newQueue()
 
         when:
         queue.enqueue("Johny")
@@ -42,7 +42,7 @@ abstract class QueueSpec extends Specification {
 
     def "Dequeue on empty queue throws exception"() {
         given:
-        Queue<String> queue = newQueue(16)
+        Queue<String> queue = newQueue()
 
         when:
         queue.dequeue()
@@ -53,7 +53,7 @@ abstract class QueueSpec extends Specification {
 
     def "Peeking empty queue throws exception"() {
         given:
-        Queue<String> queue = newQueue(16)
+        Queue<String> queue = newQueue()
 
         when:
         queue.peek()
@@ -62,5 +62,5 @@ abstract class QueueSpec extends Specification {
         thrown IllegalStateException
     }
 
-    abstract Queue<String> newQueue(int capacity);
+    protected abstract Queue<String> newQueue();
 }

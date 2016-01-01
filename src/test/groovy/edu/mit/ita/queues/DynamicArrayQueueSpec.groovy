@@ -37,7 +37,7 @@ class DynamicArrayQueueSpec extends QueueSpec {
     }
 
     @Override
-    Queue<String> newQueue(int capacity) {
-        return new DynamicArrayQueue<String>(capacity)
+    protected Queue<String> newQueue() {
+        return new DynamicArrayQueue<String>()
     }
 }

@@ -17,7 +17,7 @@ class FixedArrayQueueSpec extends QueueSpec {
     }
 
     @Override
-    Queue<String> newQueue(int capacity) {
-        return new FixedArrayQueue<String>(capacity)
+    protected Queue<String> newQueue() {
+        return new FixedArrayQueue<String>(16)
     }
 }

@@ -1,9 +1,9 @@
 package edu.mit.ita.stacks
 
 import edu.mit.ita.adt.Stack
-import spock.lang.Specification
+import edu.mit.ita.adt.StackSpec
 
-class FixedArrayStackSpec extends Specification {
+class FixedArrayStackSpec extends StackSpec {
     def "Fixed array stack throws on push when full"() {
         given: "a full stack"
         Stack<String> stack = new FixedArrayStack(1);
@@ -14,5 +14,10 @@ class FixedArrayStackSpec extends Specification {
 
         then: "an exception is thrown"
         thrown IllegalStateException
+    }
+
+    @Override
+    protected Stack<String> newStack() {
+        return new FixedArrayStack<String>(16)
     }
 }

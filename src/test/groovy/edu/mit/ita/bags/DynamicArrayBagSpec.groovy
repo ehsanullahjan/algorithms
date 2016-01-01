@@ -53,7 +53,7 @@ class DynamicArrayBagSpec extends CollectionSpec {
     }
 
     @Override
-    Collection<String> newCollection() {
+    protected Collection<String> newCollection() {
         return new DynamicArrayBag<String>()
     }
 }

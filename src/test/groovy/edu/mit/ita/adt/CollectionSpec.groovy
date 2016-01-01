@@ -65,5 +65,5 @@ abstract class CollectionSpec extends Specification {
         collection.each {names.contains(it)}
     }
 
-    abstract Collection<String> newCollection();
+    protected abstract Collection<String> newCollection();
 }

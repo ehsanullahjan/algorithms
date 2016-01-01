@@ -1,12 +1,13 @@
 package edu.mit.ita.stacks
 
 import edu.mit.ita.adt.Stack
-import spock.lang.Specification
+import edu.mit.ita.adt.StackSpec
 
-class DynamicArrayStackSpec extends Specification {
+class DynamicArrayStackSpec extends StackSpec {
+    private static final int initialCapacity = 4
+
     def "Dynamic array stack grows on push when full"() {
         given: "a full stack"
-        int initialCapacity = 4
         Stack<String> stack = new DynamicArrayStack<>(initialCapacity);
         stack.push("Johny")
         stack.push("Manny")
@@ -23,7 +24,6 @@ class DynamicArrayStackSpec extends Specification {
 
     def "Dynamic array stack shrinks when full below 1/4th its capacity"() {
         given: "a half full stack"
-        int initialCapacity = 4
         Stack<String> stack = new DynamicArrayStack<>(initialCapacity);
         stack.push("Johny")
         stack.push("Manny")
@@ -34,5 +34,10 @@ class DynamicArrayStackSpec extends Specification {
         then: "the stack shrinks to half its size"
         stack.size() == 1
         stack.capacity() == initialCapacity / 2 as int
+    }
+
+    @Override
+    protected Stack<String> newStack() {
+        return new DynamicArrayStack<String>()
     }
 }
