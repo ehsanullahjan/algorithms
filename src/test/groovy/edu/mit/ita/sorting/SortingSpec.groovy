@@ -19,5 +19,6 @@ class SortingSpec extends Specification {
         where:
         method           | sort                 | items                || result
         "insertion sort" | {Insertion.sort(it)} | unorderedSeq.clone() || orderedSeq
+        "merge sort"     | {Merge.sort(it)}     | unorderedSeq.clone() || orderedSeq
     }
 }
