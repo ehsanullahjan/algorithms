@@ -1,10 +1,10 @@
 package edu.mit.ita.sorting;
 
-public class SortMethods {
-    private SortMethods() {
+public class Insertion {
+    private Insertion() {
     }
 
-    public static <T extends Comparable<T>> void insertionSort(T[] seq) {
+    public static <T extends Comparable<T>> void sort(T[] seq) {
         // Trivially sorted
         if (seq.length <= 1) {
             return;
