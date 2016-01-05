@@ -1,6 +1,5 @@
 package edu.mit.ita.numerical
 
-import edu.mit.ita.numerical.Factorial
 import spock.lang.Specification
 
 class FactorialSpec extends Specification {
@@ -8,11 +7,11 @@ class FactorialSpec extends Specification {
 
     def "Can find factorial recursively"() {
         expect:
-        (0..10).each {Factorial.recursive(it) == facts[it]}
+        (0..<facts.length).each {Factorial.recursive(it) == facts[it]}
     }
 
     def "Can find factorial imperatively"() {
         expect:
-        (0..10).each {Factorial.imperative(it) == facts[it]}
+        (0..<facts.length).each {Factorial.imperative(it) == facts[it]}
     }
 }
