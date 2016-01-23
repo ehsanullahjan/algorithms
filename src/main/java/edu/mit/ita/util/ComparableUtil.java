@@ -1,7 +1,7 @@
 package edu.mit.ita.util;
 
-public class Comparables {
-    private Comparables() {
+public class ComparableUtil {
+    private ComparableUtil() {
     }
 
     public static <T extends Comparable<T>> T min(T[] seq) {
