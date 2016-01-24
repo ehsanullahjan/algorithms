@@ -18,8 +18,8 @@ public class DynamicArrayStack<T> implements Stack<T> {
 
     @Override
     public void push(T element) {
-        if (isFull()) {
-            grow();
+        if (loadFactor() >= 1.0F) {
+            resize(capacity() * 2);
         }
 
         elements[++top] = element;
@@ -30,8 +30,8 @@ public class DynamicArrayStack<T> implements Stack<T> {
         T element = peek();
         elements[top--] = null;
 
-        if (isQuarterFull()) {
-            shrink();
+        if (loadFactor() <= 0.25) {
+            resize(capacity() / 2);
         }
 
         return element;
@@ -60,20 +60,8 @@ public class DynamicArrayStack<T> implements Stack<T> {
         return size() == 0;
     }
 
-    private boolean isFull() {
-        return size() == elements.length;
-    }
-
-    private boolean isQuarterFull() {
-        return size() == elements.length / 4;
-    }
-
-    private void grow() {
-        resize(elements.length * 2);
-    }
-
-    private void shrink() {
-        resize(elements.length / 2);
+    private float loadFactor() {
+        return size() / capacity();
     }
 
     @SuppressWarnings({"unchecked", "ManualArrayCopy"})
