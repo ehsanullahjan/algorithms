@@ -16,7 +16,7 @@ public class Factorial {
         }
     }
 
-    public static long imperative(long n) {
+    public static long iterative(long n) {
         if (n < 0) {
             throw new IllegalArgumentException("n < 0");
         }

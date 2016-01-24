@@ -10,8 +10,8 @@ class FactorialSpec extends Specification {
         (0..<facts.length).each {Factorial.recursive(it) == facts[it]}
     }
 
-    def "Can find factorial imperatively"() {
+    def "Can find factorial iteratively"() {
         expect:
-        (0..<facts.length).each {Factorial.imperative(it) == facts[it]}
+        (0..<facts.length).each {Factorial.iterative(it) == facts[it]}
     }
 }
