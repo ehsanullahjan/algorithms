@@ -13,7 +13,7 @@ public class ComparableUtil {
 
         T x = seq[lo];
         for (int i = lo + 1; i < hi; i++) {
-            if (seq[i].compareTo(x) < 0) {
+            if (lt(seq[i], x)) {
                 x = seq[i];
             }
         }
@@ -30,12 +30,32 @@ public class ComparableUtil {
 
         T x = seq[lo];
         for (int i = lo + 1; i < hi; i++) {
-            if (seq[i].compareTo(x) > 0) {
+            if (gt(seq[i], x)) {
                 x = seq[i];
             }
         }
 
         return x;
+    }
+
+    public static <T extends Comparable<T>> boolean eq(T a, T b) {
+        return a.compareTo(b) == 0;
+    }
+
+    public static <T extends Comparable<T>> boolean lt(T a, T b) {
+        return a.compareTo(b) < 0;
+    }
+
+    public static <T extends Comparable<T>> boolean ltOrEq(T a, T b) {
+        return a.compareTo(b) <= 0;
+    }
+
+    public static <T extends Comparable<T>> boolean gt(T a, T b) {
+        return a.compareTo(b) > 0;
+    }
+
+    public static <T extends Comparable<T>> boolean gtOrEq(T a, T b) {
+        return a.compareTo(b) >= 0;
     }
 
     private static <T extends Comparable<T>> void validate(T[] seq, int lo, int hi) {

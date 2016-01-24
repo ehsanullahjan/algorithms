@@ -4,6 +4,7 @@ import spock.lang.Specification
 
 import static ComparableUtil.max
 import static ComparableUtil.min
+import static edu.mit.ita.util.ComparableUtil.*
 
 class ComparableUtilSpec extends Specification {
     private static final String[] seq = ["B", "F", "Z", "J", "X", "L", "Y", "M", "D"]
@@ -26,5 +27,25 @@ class ComparableUtilSpec extends Specification {
         lo | hi         || result
         0  | seq.length || "Z"
         3  | seq.length || "Y"
+    }
+
+    def "Comparable wrapper methods work as per Comparable contract"() {
+        given:
+        Integer zero = Integer.valueOf(0)
+        Integer one = Integer.valueOf(1)
+
+        expect:
+        eq(zero, zero)
+        !eq(zero, one)
+
+        and:
+        lt(zero, one)
+        ltOrEq(zero, one)
+        ltOrEq(zero, zero)
+
+        and:
+        gt(one, zero)
+        gtOrEq(one, zero)
+        gtOrEq(one, one)
     }
 }
