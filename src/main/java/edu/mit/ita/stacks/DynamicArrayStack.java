@@ -32,7 +32,7 @@ public class DynamicArrayStack<T> implements Stack<T> {
         T element = peek();
         elements[top--] = null;
 
-        if (loadFactor() <= 0.25) {
+        if (loadFactor() <= 0.25F) {
             resize(capacity() / 2);
         }
 
