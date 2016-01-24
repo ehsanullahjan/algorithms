@@ -38,6 +38,6 @@ class DynamicArrayQueueSpec extends QueueSpec {
 
     @Override
     protected Queue<String> newQueue() {
-        return new DynamicArrayQueue<String>()
+        return new DynamicArrayQueue<>()
     }
 }

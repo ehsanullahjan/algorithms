@@ -38,6 +38,6 @@ class DynamicArrayStackSpec extends StackSpec {
 
     @Override
     protected Stack<String> newStack() {
-        return new DynamicArrayStack<String>()
+        return new DynamicArrayStack<>()
     }
 }

@@ -18,6 +18,6 @@ class FixedArrayQueueSpec extends QueueSpec {
 
     @Override
     protected Queue<String> newQueue() {
-        return new FixedArrayQueue<String>(16)
+        return new FixedArrayQueue<>(16)
     }
 }
