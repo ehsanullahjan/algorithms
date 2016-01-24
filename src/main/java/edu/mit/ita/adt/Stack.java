@@ -1,6 +1,6 @@
 package edu.mit.ita.adt;
 
-public interface Stack<T> {
+public interface Stack<T> extends Iterable<T> {
     void push(T element);
     T pop();
     T peek();

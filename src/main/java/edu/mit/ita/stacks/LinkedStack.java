@@ -2,6 +2,9 @@ package edu.mit.ita.stacks;
 
 import edu.mit.ita.adt.Stack;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class LinkedStack<T> implements Stack<T> {
     private final Node<T> head;
     private int size;
@@ -41,6 +44,29 @@ public class LinkedStack<T> implements Stack<T> {
     @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private Node<T> top = head.next;
+
+            @Override
+            public boolean hasNext() {
+                return top != null;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+
+                T element = top.element;
+                top = top.next;
+                return element;
+            }
+        };
     }
 
     private Node<T> peek0() {

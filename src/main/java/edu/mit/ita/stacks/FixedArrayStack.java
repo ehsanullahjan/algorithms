@@ -2,6 +2,8 @@ package edu.mit.ita.stacks;
 
 import edu.mit.ita.adt.Stack;
 
+import java.util.Iterator;
+
 public class FixedArrayStack<T> implements Stack<T> {
     private final T[] elements;
     private int top;
@@ -49,5 +51,10 @@ public class FixedArrayStack<T> implements Stack<T> {
 
     public boolean isFull() {
         return size() == elements.length;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayStackIterator<>(elements, top);
     }
 }

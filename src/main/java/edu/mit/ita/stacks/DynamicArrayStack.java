@@ -2,6 +2,8 @@ package edu.mit.ita.stacks;
 
 import edu.mit.ita.adt.Stack;
 
+import java.util.Iterator;
+
 public class DynamicArrayStack<T> implements Stack<T> {
     private T[] elements;
     private int top;
@@ -58,6 +60,11 @@ public class DynamicArrayStack<T> implements Stack<T> {
     @Override
     public boolean isEmpty() {
         return size() == 0;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayStackIterator<>(elements, top);
     }
 
     private float loadFactor() {

@@ -60,5 +60,18 @@ abstract class StackSpec extends Specification {
         thrown IllegalStateException
     }
 
+    def "Can iterate stack in LIFO order"() {
+        given:
+        String[] elements = ["Johny", "Manny", "Tommy"]
+        Stack<String> stack = newStack();
+        elements.each {stack.push(it)}
+
+        expect:
+        int i = elements.length - 1;
+        for (String element : stack) {
+            element == elements[i--];
+        }
+    }
+
     protected abstract Stack<String> newStack();
 }
