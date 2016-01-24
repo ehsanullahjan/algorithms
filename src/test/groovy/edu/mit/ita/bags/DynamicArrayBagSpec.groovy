@@ -37,12 +37,12 @@ class DynamicArrayBagSpec extends CollectionSpec {
     }
 
     def "Can delete last element"() {
+        given:
         Collection<String> bag = new DynamicArrayBag<>(initialCapacity)
         bag.add("Johny")
         bag.add("Manny")
         bag.add("Abby")
         bag.add("Haley")
-        given:
 
         when:
         bag.remove("Haley")
