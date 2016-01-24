@@ -20,11 +20,11 @@ public class DynamicArrayQueue<T> implements Queue<T> {
 
     @Override
     public void enqueue(T element) {
-        if (isFull()) {
-            grow();
+        if (loadFactor() >= 1.0F) {
+            resize(capacity() * 2);
         }
 
-        int back = (front + size) % elements.length;
+        int back = (front + size) % capacity();
         elements[back] = element;
         size++;
     }
@@ -33,11 +33,11 @@ public class DynamicArrayQueue<T> implements Queue<T> {
     public T dequeue() {
         T element = peek();
         elements[front] = null;
-        front = (front + 1) % elements.length;
+        front = (front + 1) % capacity();
         size--;
 
-        if (isQuarterFull()) {
-            shrink();
+        if (loadFactor() <= 0.25F) {
+            resize(capacity() / 2);
         }
 
         return element;
@@ -66,26 +66,14 @@ public class DynamicArrayQueue<T> implements Queue<T> {
         return size == 0;
     }
 
-    private boolean isFull() {
-        return size == elements.length;
-    }
-
-    private boolean isQuarterFull() {
-        return size == elements.length / 4;
-    }
-
-    private void grow() {
-        resize(elements.length * 2);
-    }
-
-    private void shrink() {
-        resize(elements.length / 2);
+    private float loadFactor() {
+        return size / capacity();
     }
 
     @SuppressWarnings("unchecked")
     private void resize(int capacity) {
         T[] temp = (T[])new Object[capacity];
-        for (int i = 0, j = front; i < size; i++, j = (j + 1) % elements.length) {
+        for (int i = 0, j = front; i < size; i++, j = (j + 1) % capacity()) {
             temp[i] = elements[j];
         }
 

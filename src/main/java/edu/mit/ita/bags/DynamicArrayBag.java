@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 
 public class DynamicArrayBag<T> implements Collection<T> {
     private T[] elements;
-    private int pointer;
+    private int index;
 
     @SuppressWarnings("unchecked")
     public DynamicArrayBag() {
@@ -18,16 +18,16 @@ public class DynamicArrayBag<T> implements Collection<T> {
     @SuppressWarnings("unchecked")
     public DynamicArrayBag(int initialCapacity) {
         this.elements = (T[])new Object[initialCapacity];
-        this.pointer = 0;
+        this.index = 0;
     }
 
     @Override
     public void add(T element) {
-        if (isFull()) {
-            grow();
+        if (loadFactor() >= 1.0F) {
+            resize(capacity() * 2);
         }
 
-        elements[pointer++] = element;
+        elements[index++] = element;
     }
 
     @Override
@@ -39,13 +39,13 @@ public class DynamicArrayBag<T> implements Collection<T> {
         }
 
         elements[i] = null;
-        for (int j = i; j < pointer - 1; j++) {
+        for (int j = i; j < index - 1; j++) {
             elements[j] = elements[j + 1];
         }
-        pointer--;
+        index--;
 
-        if (isQuarterFull()) {
-            shrink();
+        if (loadFactor() <= 0.25F) {
+            resize(capacity() / 2);
         }
 
         return true;
@@ -62,12 +62,12 @@ public class DynamicArrayBag<T> implements Collection<T> {
             elements[i] = null;
         }
 
-        pointer = 0;
+        index = 0;
     }
 
     @Override
     public int size() {
-        return pointer;
+        return index;
     }
 
     public int capacity() {
@@ -76,14 +76,14 @@ public class DynamicArrayBag<T> implements Collection<T> {
 
     @Override
     public boolean isEmpty() {
-        return pointer == 0;
+        return index == 0;
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private int i = 0;
-            private final int size = pointer;
+            private final int size = size();
 
             @Override
             public boolean hasNext() {
@@ -96,7 +96,7 @@ public class DynamicArrayBag<T> implements Collection<T> {
                     throw new NoSuchElementException();
                 }
 
-                if (size != pointer) {
+                if (size != size()) {
                     throw new ConcurrentModificationException();
                 }
 
@@ -110,7 +110,7 @@ public class DynamicArrayBag<T> implements Collection<T> {
             return -1;
         }
 
-        for (int i = 0; i < pointer; i++) {
+        for (int i = 0; i < index; i++) {
             if (elements[i].equals(element)) {
                 return i;
             }
@@ -119,26 +119,14 @@ public class DynamicArrayBag<T> implements Collection<T> {
         return -1;
     }
 
-    private boolean isFull() {
-        return pointer == elements.length;
-    }
-
-    private boolean isQuarterFull() {
-        return pointer == elements.length / 4;
-    }
-
-    private void grow() {
-        resize(elements.length * 2);
-    }
-
-    private void shrink() {
-        resize(elements.length / 2);
+    private float loadFactor() {
+        return size() / capacity();
     }
 
     @SuppressWarnings({"unchecked", "ManualArrayCopy"})
     private void resize(int capacity) {
         T[] temp = (T[])new Object[capacity];
-        for (int i = 0; i < pointer; i++) {
+        for (int i = 0; i < index; i++) {
             temp[i] = elements[i];
         }
 
