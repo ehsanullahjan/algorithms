@@ -2,6 +2,8 @@ package edu.mit.ita.queues;
 
 import edu.mit.ita.adt.Queue;
 
+import java.util.Iterator;
+
 public class FixedArrayQueue<T> implements Queue<T> {
     private final T[] elements;
     private int front;
@@ -20,7 +22,7 @@ public class FixedArrayQueue<T> implements Queue<T> {
             throw new IllegalStateException("Queue overflow");
         }
 
-        int back = (front + size) % elements.length;
+        int back = (front + size) % capacity();
         elements[back] = element;
         size++;
     }
@@ -29,7 +31,7 @@ public class FixedArrayQueue<T> implements Queue<T> {
     public T dequeue() {
         T element = peek();
         elements[front] = null;
-        front = (front + 1) % elements.length;
+        front = (front + 1) % capacity();
         size--;
 
         return element;
@@ -59,6 +61,11 @@ public class FixedArrayQueue<T> implements Queue<T> {
     }
 
     public boolean isFull() {
-        return size == elements.length;
+        return size == capacity();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayQueueIterator<>(elements, front, size);
     }
 }

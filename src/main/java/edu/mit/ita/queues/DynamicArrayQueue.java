@@ -2,6 +2,8 @@ package edu.mit.ita.queues;
 
 import edu.mit.ita.adt.Queue;
 
+import java.util.Iterator;
+
 public class DynamicArrayQueue<T> implements Queue<T> {
     private T[] elements;
     private int front;
@@ -64,6 +66,11 @@ public class DynamicArrayQueue<T> implements Queue<T> {
     @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayQueueIterator<>(elements, front, size);
     }
 
     private float loadFactor() {

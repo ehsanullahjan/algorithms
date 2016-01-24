@@ -2,6 +2,9 @@ package edu.mit.ita.queues;
 
 import edu.mit.ita.adt.Queue;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class LinkedQueue<T> implements Queue<T> {
     private final Node<T> front;
     private Node<T> back;
@@ -47,6 +50,29 @@ public class LinkedQueue<T> implements Queue<T> {
     @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private Node<T> node = front.next;
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+
+                T element = node.element;
+                node = node.next;
+                return element;
+            }
+        };
     }
 
     private Node<T> peek0() {

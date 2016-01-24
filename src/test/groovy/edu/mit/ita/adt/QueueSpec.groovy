@@ -62,5 +62,18 @@ abstract class QueueSpec extends Specification {
         thrown IllegalStateException
     }
 
+    def "Can iterate queue in FIFO order"() {
+        given:
+        String[] elements = ["Johny", "Manny", "Tommy"]
+        Queue<String> queue = newQueue();
+        elements.each {queue.enqueue(it)}
+
+        expect:
+        int i = 0;
+        for (String element : queue) {
+            element == elements[i++];
+        }
+    }
+
     protected abstract Queue<String> newQueue();
 }
