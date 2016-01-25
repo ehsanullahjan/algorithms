@@ -2,9 +2,9 @@ package edu.mit.ita.util
 
 import spock.lang.Specification
 
-import static ComparableUtil.max
-import static ComparableUtil.min
-import static edu.mit.ita.util.ComparableUtil.*
+import static Comparables.max
+import static Comparables.min
+import static Comparables.*
 
 class ComparableUtilSpec extends Specification {
     private static final String[] seq = ["B", "F", "Z", "J", "X", "L", "Y", "M", "D"]
