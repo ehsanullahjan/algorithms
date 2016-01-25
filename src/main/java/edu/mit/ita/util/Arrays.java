@@ -1,7 +1,7 @@
 package edu.mit.ita.util;
 
-public class ArrayUtil {
-    private ArrayUtil() {
+public class Arrays {
+    private Arrays() {
     }
 
     public static <T extends Comparable<T>> void swap(T[] seq, int i, int j) {
