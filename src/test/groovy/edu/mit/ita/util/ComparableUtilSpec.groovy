@@ -40,12 +40,12 @@ class ComparableUtilSpec extends Specification {
 
         and:
         lt(zero, one)
-        ltOrEq(zero, one)
-        ltOrEq(zero, zero)
+        le(zero, one)
+        le(zero, zero)
 
         and:
         gt(one, zero)
-        gtOrEq(one, zero)
-        gtOrEq(one, one)
+        ge(one, zero)
+        ge(one, one)
     }
 }

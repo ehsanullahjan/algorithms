@@ -46,7 +46,7 @@ public class Comparables {
         return a.compareTo(b) < 0;
     }
 
-    public static <T extends Comparable<T>> boolean ltOrEq(T a, T b) {
+    public static <T extends Comparable<T>> boolean le(T a, T b) {
         return a.compareTo(b) <= 0;
     }
 
@@ -54,7 +54,7 @@ public class Comparables {
         return a.compareTo(b) > 0;
     }
 
-    public static <T extends Comparable<T>> boolean gtOrEq(T a, T b) {
+    public static <T extends Comparable<T>> boolean ge(T a, T b) {
         return a.compareTo(b) >= 0;
     }
 
