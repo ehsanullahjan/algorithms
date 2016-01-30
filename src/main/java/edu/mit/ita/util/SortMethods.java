@@ -2,25 +2,36 @@ package edu.mit.ita.util;
 
 import edu.mit.ita.adt.SortMethod;
 
+import java.util.Comparator;
+
 import static edu.mit.ita.util.Arrays.swap;
-import static edu.mit.ita.util.Comparables.lt;
 
 public class SortMethods {
     public static final SortMethod insertionSort = new SortMethod() {
-        public <T extends Comparable<T>> void apply(T[] seq) {
-            sort(seq);
+        @Override
+        public <T extends Comparable<? super T>> void apply(T[] seq) {
+            sort(seq, Comparable::compareTo);
         }
 
-        public <T extends Comparable<T>> void sort(T[] seq) {
+        @Override
+        public <T> void apply(T[] seq, Comparator<? super T> comparator) {
+            sort(seq, comparator);
+        }
+
+        private <T> void sort(T[] seq, Comparator<? super T> comparator) {
+            if (comparator == null) {
+                throw new NullPointerException("comparator");
+            }
+
             // Trivially sorted
-            if (seq.length <= 1) {
+            if (seq == null || seq.length <= 1) {
                 return;
             }
 
             // Loop invariant: seq[0..j-1] is always sorted
             for (int i = 1; i < seq.length; i++) {
                 for (int j = i; j > 0; j--) {
-                    if (seq[j].compareTo(seq[j - 1]) < 0) {
+                    if (comparator.compare(seq[j], seq[j - 1]) < 0) {
                         swap(seq, j, j - 1);
                     } else {
                         break;
@@ -31,34 +42,44 @@ public class SortMethods {
     };
 
     public static final SortMethod mergeSort = new SortMethod() {
-        public <T extends Comparable<T>> void apply(T[] seq) {
-            sort(seq);
+        @Override
+        public <T extends Comparable<? super T>> void apply(T[] seq) {
+            sort(seq, Comparable::compareTo);
+        }
+
+        @Override
+        public <T> void apply(T[] seq, Comparator<? super T> comparator) {
+            sort(seq, comparator);
         }
 
         @SuppressWarnings("unchecked")
-        public <T extends Comparable<T>> void sort(T[] seq) {
+        private <T> void sort(T[] seq, Comparator<? super T> comparator) {
+            if (comparator == null) {
+                throw new NullPointerException("comparator");
+            }
+
             if (seq == null || seq.length <= 1) {
                 return;
             }
 
-            T[] auxSeq = (T[])new Comparable[seq.length];
-            sort(seq, auxSeq, 0, seq.length - 1);
+            T[] auxSeq = (T[])new Comparable<?>[seq.length];
+            sort(seq, comparator, auxSeq, 0, seq.length - 1);
         }
 
-        private <T extends Comparable<T>> void sort(T[] seq, T[] auxSeq, int lo, int hi) {
+        private <T> void sort(T[] seq, Comparator<? super T> comparator, T[] auxSeq, int lo, int hi) {
             if (lo >= hi) {
                 return;
             }
 
             int mid = (lo + hi) / 2;
-            sort(seq, auxSeq, lo, mid);
-            sort(seq, auxSeq, mid + 1, hi);
-            merge(seq, auxSeq, lo, mid, hi);
+            sort(seq, comparator, auxSeq, lo, mid);
+            sort(seq, comparator, auxSeq, mid + 1, hi);
+            merge(seq, comparator, auxSeq, lo, mid, hi);
         }
 
         // Precondition: seq[lo..mid] and seq[mid+1..hi] must be sorted
         @SuppressWarnings("ManualArrayCopy")
-        private <T extends Comparable<T>> void merge(T[] seq, T[] auxSeq, int lo, int mid, int hi) {
+        private <T> void merge(T[] seq, Comparator<? super T> comparator, T[] auxSeq, int lo, int mid, int hi) {
             for (int i = lo; i <= hi; i++) {
                 auxSeq[i] = seq[i];
             }
@@ -70,7 +91,7 @@ public class SortMethods {
                     seq[k] = auxSeq[j++];
                 } else if (j > hi) {
                     seq[k] = auxSeq[i++];
-                } else if (lt(auxSeq[i], auxSeq[j])) {
+                } else if (comparator.compare(auxSeq[i], auxSeq[j]) < 0) {
                     seq[k] = auxSeq[i++];
                 } else {
                     seq[k] = auxSeq[j++];
