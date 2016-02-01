@@ -68,7 +68,7 @@ public class DynamicArrayStack<T> implements Stack<T> {
     }
 
     private float loadFactor() {
-        return size() / capacity();
+        return (float)size() / (float)capacity();
     }
 
     @SuppressWarnings({"unchecked", "ManualArrayCopy"})

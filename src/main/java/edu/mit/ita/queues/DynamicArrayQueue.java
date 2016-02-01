@@ -74,7 +74,7 @@ public class DynamicArrayQueue<T> implements Queue<T> {
     }
 
     private float loadFactor() {
-        return size / capacity();
+        return (float)size / (float)capacity();
     }
 
     @SuppressWarnings("unchecked")
