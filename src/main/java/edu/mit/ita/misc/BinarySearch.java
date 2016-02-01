@@ -4,11 +4,11 @@ public class BinarySearch {
     private BinarySearch() {
     }
 
-    public static <T extends Comparable<T>> int rank(T[] seq, T key) {
+    public static <T extends Comparable<? super T>> int rank(T[] seq, T key) {
         return rank(seq, key, 0, seq.length);
     }
 
-    public static <T extends Comparable<T>> int rank(T[] seq, T key, int lo, int hi) {
+    public static <T extends Comparable<? super T>> int rank(T[] seq, T key, int lo, int hi) {
         if (lo > hi) {
             return -1;
         }

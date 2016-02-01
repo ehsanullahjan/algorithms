@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 import static Comparables.max
 import static Comparables.min
-import static Comparables.*
+import static edu.mit.ita.util.Comparables.*
 
 class ComparableUtilSpec extends Specification {
     private static final String[] seq = ["B", "F", "Z", "J", "X", "L", "Y", "M", "D"]
@@ -14,9 +14,9 @@ class ComparableUtilSpec extends Specification {
         min(seq, lo, hi) == result
 
         where:
-        lo | hi         || result
-        0  | seq.length || "B"
-        2  | 5          || "J"
+        lo | hi             || result
+        0  | seq.length - 1 || "B"
+        2  | 6              || "J"
     }
 
     def "Can find maximum in a comparable sequence"(int lo, int hi, String result) {
@@ -24,9 +24,9 @@ class ComparableUtilSpec extends Specification {
         max(seq, lo, hi) == result
 
         where:
-        lo | hi         || result
-        0  | seq.length || "Z"
-        3  | seq.length || "Y"
+        lo | hi             || result
+        0  | seq.length - 1 || "Z"
+        3  | seq.length - 1 || "Y"
     }
 
     def "Comparable wrapper methods work as per Comparable contract"() {
