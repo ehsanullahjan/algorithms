@@ -10,7 +10,7 @@ This project is a personal playground for practicing and implementing data struc
 
 Alhough I try to provide generally efficient implementations, that's not the focus of this project. This project is strictly a learning resource first and foremost for me and then for whomever might find it useful.
 
-To that end, I try to make implementations simple and explicit, avoiding complex class hierarchies and cunning language features. As a result there's not a whole lot in the way of code reuse. When needed, arrays are copied manually instead of using `System.arraycopy()`. Hardly any built-in Java library implementations are used, if any at all. You also won't find much use of Java 8 features like Lambdas and Streams.
+To that end, I try to make implementations simple and explicit, avoiding complex class hierarchies and cunning language features. As a result there's not a whole lot in the way of code reuse. When needed, arrays are copied manually instead of using `System.arraycopy()` (with some exceptions). Hardly any built-in Java library implementations are used, if any at all. You also won't find much use of Java 8 features like Lambdas and Streams.
 
 ## Looking Forward
 
