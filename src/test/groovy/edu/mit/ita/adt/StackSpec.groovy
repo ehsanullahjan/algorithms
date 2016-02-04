@@ -46,7 +46,7 @@ abstract class StackSpec extends Specification {
         stack.pop()
 
         then:
-        thrown IllegalStateException
+        thrown NoSuchElementException
     }
 
     def "Peeking empty stack throws exception"() {
@@ -57,7 +57,7 @@ abstract class StackSpec extends Specification {
         stack.peek()
 
         then:
-        thrown IllegalStateException
+        thrown NoSuchElementException
     }
 
     def "Can iterate stack in LIFO order"() {

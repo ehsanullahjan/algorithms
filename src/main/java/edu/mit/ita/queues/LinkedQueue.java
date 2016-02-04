@@ -77,7 +77,7 @@ public class LinkedQueue<T> implements Queue<T> {
 
     private Node<T> peek0() {
         if (isEmpty()) {
-            throw new IllegalStateException("Queue underflow");
+            throw new NoSuchElementException();
         }
 
         return front.next;

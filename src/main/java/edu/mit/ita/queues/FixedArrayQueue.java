@@ -3,6 +3,7 @@ package edu.mit.ita.queues;
 import edu.mit.ita.adt.Queue;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class FixedArrayQueue<T> implements Queue<T> {
     private final T[] elements;
@@ -40,7 +41,7 @@ public class FixedArrayQueue<T> implements Queue<T> {
     @Override
     public T peek() {
         if (isEmpty()) {
-            throw new IllegalStateException("Queue underflow");
+            throw new NoSuchElementException();
         }
 
         return elements[front];

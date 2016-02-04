@@ -3,6 +3,7 @@ package edu.mit.ita.queues;
 import edu.mit.ita.adt.Queue;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class DynamicArrayQueue<T> implements Queue<T> {
     private T[] elements;
@@ -48,7 +49,7 @@ public class DynamicArrayQueue<T> implements Queue<T> {
     @Override
     public T peek() {
         if (isEmpty()) {
-            throw new IllegalStateException("Queue underflow");
+            throw new NoSuchElementException();
         }
 
         return elements[front];

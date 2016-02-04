@@ -71,7 +71,7 @@ public class LinkedStack<T> implements Stack<T> {
 
     private Node<T> peek0() {
         if (isEmpty()) {
-            throw new IllegalStateException("Stack underflow");
+            throw new NoSuchElementException();
         }
 
         return head.next;

@@ -3,6 +3,7 @@ package edu.mit.ita.stacks;
 import edu.mit.ita.adt.Stack;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class FixedArrayStack<T> implements Stack<T> {
     private final T[] elements;
@@ -33,7 +34,7 @@ public class FixedArrayStack<T> implements Stack<T> {
     @Override
     public T peek() {
         if (isEmpty()) {
-            throw new IllegalStateException("Stack underflow");
+            throw new NoSuchElementException();
         }
 
         return elements[top];

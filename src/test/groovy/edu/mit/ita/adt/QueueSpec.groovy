@@ -48,7 +48,7 @@ abstract class QueueSpec extends Specification {
         queue.dequeue()
 
         then:
-        thrown IllegalStateException
+        thrown NoSuchElementException
     }
 
     def "Peeking empty queue throws exception"() {
@@ -59,7 +59,7 @@ abstract class QueueSpec extends Specification {
         queue.peek()
 
         then:
-        thrown IllegalStateException
+        thrown NoSuchElementException
     }
 
     def "Can iterate queue in FIFO order"() {
