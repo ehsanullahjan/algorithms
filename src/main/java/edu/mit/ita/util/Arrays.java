@@ -1,6 +1,6 @@
 package edu.mit.ita.util;
 
-public class Arrays {
+public final class Arrays {
     private Arrays() {
     }
 

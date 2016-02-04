@@ -1,6 +1,6 @@
 package edu.mit.ita.util;
 
-public class Comparables {
+public final class Comparables {
     private Comparables() {
     }
 
