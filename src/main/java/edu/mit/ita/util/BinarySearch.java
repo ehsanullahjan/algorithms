@@ -1,4 +1,4 @@
-package edu.mit.ita.misc;
+package edu.mit.ita.util;
 
 public class BinarySearch {
     private BinarySearch() {

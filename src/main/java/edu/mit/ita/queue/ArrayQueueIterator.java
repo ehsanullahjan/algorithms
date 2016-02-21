@@ -1,4 +1,4 @@
-package edu.mit.ita.queues;
+package edu.mit.ita.queue;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

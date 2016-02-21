@@ -1,4 +1,4 @@
-package edu.mit.ita.bags
+package edu.mit.ita.bag
 
 import edu.mit.ita.adt.Collection
 import edu.mit.ita.adt.CollectionSpec

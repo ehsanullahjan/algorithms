@@ -1,4 +1,4 @@
-package edu.mit.ita.stacks;
+package edu.mit.ita.stack;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

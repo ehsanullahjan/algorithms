@@ -1,43 +1,37 @@
-package edu.mit.ita.queues;
+package edu.mit.ita.stack;
 
-import edu.mit.ita.adt.Queue;
+import edu.mit.ita.adt.Stack;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DynamicArrayQueue<T> implements Queue<T> {
+public class DynamicArrayStack<T> implements Stack<T> {
     private T[] elements;
-    private int front;
-    private int size;
+    private int top;
 
-    public DynamicArrayQueue() {
+    public DynamicArrayStack() {
         this(16);
     }
 
     @SuppressWarnings("unchecked")
-    public DynamicArrayQueue(int initialCapacity) {
+    public DynamicArrayStack(int initialCapacity) {
         this.elements = (T[])new Object[initialCapacity];
-        this.front = 0;
-        this.size = 0;
+        this.top = -1;
     }
 
     @Override
-    public void enqueue(T element) {
+    public void push(T element) {
         if (loadFactor() >= 1.0F) {
             resize(capacity() * 2);
         }
 
-        int back = (front + size) % capacity();
-        elements[back] = element;
-        size++;
+        elements[++top] = element;
     }
 
     @Override
-    public T dequeue() {
+    public T pop() {
         T element = peek();
-        elements[front] = null;
-        front = (front + 1) % capacity();
-        size--;
+        elements[top--] = null;
 
         if (loadFactor() <= 0.25F) {
             resize(capacity() / 2);
@@ -52,12 +46,12 @@ public class DynamicArrayQueue<T> implements Queue<T> {
             throw new NoSuchElementException();
         }
 
-        return elements[front];
+        return elements[top];
     }
 
     @Override
     public int size() {
-        return size;
+        return top + 1;
     }
 
     public int capacity() {
@@ -66,26 +60,25 @@ public class DynamicArrayQueue<T> implements Queue<T> {
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return size() == 0;
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new ArrayQueueIterator<>(elements, front, size);
+        return new ArrayStackIterator<>(elements, top);
     }
 
     private float loadFactor() {
-        return (float)size / (float)capacity();
+        return (float)size() / (float)capacity();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "ManualArrayCopy"})
     private void resize(int capacity) {
         T[] temp = (T[])new Object[capacity];
-        for (int i = 0, j = front; i < size; i++, j = (j + 1) % capacity()) {
-            temp[i] = elements[j];
+        for (int i = 0; i <= top; i++) {
+            temp[i] = elements[i];
         }
 
         elements = temp;
-        front = 0;
     }
 }

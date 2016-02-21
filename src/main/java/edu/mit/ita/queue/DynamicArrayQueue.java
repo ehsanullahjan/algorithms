@@ -1,26 +1,30 @@
-package edu.mit.ita.queues;
+package edu.mit.ita.queue;
 
 import edu.mit.ita.adt.Queue;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class FixedArrayQueue<T> implements Queue<T> {
-    private final T[] elements;
+public class DynamicArrayQueue<T> implements Queue<T> {
+    private T[] elements;
     private int front;
     private int size;
 
+    public DynamicArrayQueue() {
+        this(16);
+    }
+
     @SuppressWarnings("unchecked")
-    public FixedArrayQueue(int capacity) {
-        this.elements = (T[])new Object[capacity];
+    public DynamicArrayQueue(int initialCapacity) {
+        this.elements = (T[])new Object[initialCapacity];
         this.front = 0;
         this.size = 0;
     }
 
     @Override
     public void enqueue(T element) {
-        if (isFull()) {
-            throw new IllegalStateException("Queue overflow");
+        if (loadFactor() >= 1.0F) {
+            resize(capacity() * 2);
         }
 
         int back = (front + size) % capacity();
@@ -34,6 +38,10 @@ public class FixedArrayQueue<T> implements Queue<T> {
         elements[front] = null;
         front = (front + 1) % capacity();
         size--;
+
+        if (loadFactor() <= 0.25F) {
+            resize(capacity() / 2);
+        }
 
         return element;
     }
@@ -61,12 +69,23 @@ public class FixedArrayQueue<T> implements Queue<T> {
         return size == 0;
     }
 
-    public boolean isFull() {
-        return size == capacity();
-    }
-
     @Override
     public Iterator<T> iterator() {
         return new ArrayQueueIterator<>(elements, front, size);
+    }
+
+    private float loadFactor() {
+        return (float)size / (float)capacity();
+    }
+
+    @SuppressWarnings("unchecked")
+    private void resize(int capacity) {
+        T[] temp = (T[])new Object[capacity];
+        for (int i = 0, j = front; i < size; i++, j = (j + 1) % capacity()) {
+            temp[i] = elements[j];
+        }
+
+        elements = temp;
+        front = 0;
     }
 }
