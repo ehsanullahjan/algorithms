@@ -63,8 +63,8 @@ public final class Comparables {
             throw new IllegalArgumentException("seq is null or empty");
         }
 
-        if (lo < 0 || lo >= hi) {
-            throw new IllegalArgumentException("lo < 0 or lo >= hi");
+        if (lo < 0 || lo > hi) {
+            throw new IllegalArgumentException("lo < 0 or lo > hi");
         }
 
         if (hi > seq.length) {
