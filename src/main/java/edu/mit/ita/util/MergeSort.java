@@ -30,19 +30,24 @@ final class MergeSort {
 
     // Precondition: seq[lo..mid] and seq[mid+1..hi] must be sorted
     private static <T extends Comparable<? super T>> void merge(T[] seq, T[] auxSeq, int lo, int mid, int hi) {
-        System.arraycopy(seq, lo, auxSeq, lo, hi - lo + 1);
+        int i, j, k;
 
-        int i = lo;
-        int j = mid + 1;
-        for (int k = lo; k <= hi; k++) {
-            if (i > mid) {
-                seq[k] = auxSeq[j++];
-            } else if (j > hi) {
-                seq[k] = auxSeq[i++];
-            } else if (lt(auxSeq[i], auxSeq[j])) {
+        // Copy seq[lo..mid] to auxSeq[lo..mid]
+        for (i = lo, k = lo; i <= mid; i++, k++) {
+            auxSeq[k] = seq[i];
+        }
+
+        // Reverse copy seq[hi..mid+1] to auxSeq[mid+1..hi]
+        for (j = hi; j > mid; j--, k++) {
+            auxSeq[k] = seq[j];
+        }
+
+        // Merge auxSeq[lo..mid] and auxSeq[hi..mid+1] back into seq[lo..hi]
+        for (i = lo, j = hi, k = lo; k <= hi; k++) {
+            if (lt(auxSeq[i], auxSeq[j])) {
                 seq[k] = auxSeq[i++];
             } else {
-                seq[k] = auxSeq[j++];
+                seq[k] = auxSeq[j--];
             }
         }
     }
