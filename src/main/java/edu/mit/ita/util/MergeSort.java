@@ -22,7 +22,7 @@ final class MergeSort {
             return;
         }
 
-        int mid = (lo + hi) / 2;
+        int mid = lo + (hi - lo) / 2;
         sort(seq, auxSeq, lo, mid);
         sort(seq, auxSeq, mid + 1, hi);
         merge(seq, auxSeq, lo, mid, hi);
