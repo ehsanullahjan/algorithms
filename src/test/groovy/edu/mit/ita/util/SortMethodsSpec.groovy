@@ -3,12 +3,12 @@ package edu.mit.ita.util
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import static edu.mit.ita.util.Comparables.le
 import static edu.mit.ita.util.SortMethods.insertionSort
 import static edu.mit.ita.util.SortMethods.mergeSort
 
 class SortMethodsSpec extends Specification {
-    private static final Integer[] unorderedSeq = [5, 2, 3, 6, 14, 4, 7, 11, 10, 13, 0, 8, 15, 1, 9, 12];
-    private static final Integer[] orderedSeq = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    private static final Random random = new Random();
 
     @Unroll
     def "Items can be sorted using #method"() {
@@ -16,11 +16,21 @@ class SortMethodsSpec extends Specification {
         sort(items)
 
         then: "the items are sorted in place"
-        items == result
+        isSorted(items)
 
         where:
-        method           | sort                | items                || result
-        "insertion sort" | {insertionSort(it)} | unorderedSeq.clone() || orderedSeq
-        "merge sort"     | {mergeSort(it)}     | unorderedSeq.clone() || orderedSeq
+        method           | sort                | items
+        "insertion sort" | {insertionSort(it)} | randomSeq()
+        "merge sort"     | {mergeSort(it)}     | randomSeq()
+    }
+
+    private def static Integer[] randomSeq(int n = 10, int bound = 100) {
+        Integer[] nums = new Integer[n];
+        nums.indices.each {nums[it] = random.nextInt(bound)}
+        return nums
+    }
+
+    private def static <T extends Comparable<? super T>> boolean isSorted(T[] seq) {
+        (0..<seq.length - 1).every {le(seq[it], seq[it + 1])}
     }
 }
