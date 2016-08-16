@@ -3,12 +3,29 @@ package edu.mit.ita.util
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import static edu.mit.ita.util.Arrays.binarySearch
 import static edu.mit.ita.util.Arrays.insertionSort
 import static edu.mit.ita.util.Arrays.mergeSort
 import static edu.mit.ita.util.Comparables.le
 
 class ArraysSpec extends Specification {
     private static final Random random = new Random();
+
+    def "Can find number in sorted array using binary search"() {
+        given:
+        Integer[] nums = [4, 5, 18, 23, 34, 51, 56, 67, 68, 91]
+
+        expect:
+        binarySearch(nums, key) == rank
+
+        where:
+        key || rank
+        4   || 0
+        5   || 1
+        34  || 4
+        68  || 8
+        91  || 9
+    }
 
     @Unroll
     def "Items can be sorted using #method"() {

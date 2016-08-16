@@ -7,13 +7,15 @@ public final class Arrays {
     }
 
     public static <T> void swap(T[] seq, int i, int j) {
-        if (i == j) {
-            return;
-        }
+        if (i == j) return;
 
         T temp = seq[i];
         seq[i] = seq[j];
         seq[j] = temp;
+    }
+
+    public static <T extends Comparable<? super T>> int binarySearch(T[] seq, T key) {
+        return binarySearch(seq, key, 0, seq.length);
     }
 
     public static <T extends Comparable<? super T>> void insertionSort(T[] seq) {
@@ -27,6 +29,19 @@ public final class Arrays {
 
         T[] auxSeq = (T[])new Comparable<?>[seq.length];
         mergeSort(seq, auxSeq, 0, seq.length - 1);
+    }
+
+    private static <T extends Comparable<? super T>> int binarySearch(T[] seq, T key, int lo, int hi) {
+        if (lo > hi) return -1;
+
+        int mid = lo + (hi - lo) / 2;
+        int relation = key.compareTo(seq[mid]);
+        if (relation < 0)
+            return binarySearch(seq, key, lo, mid - 1);
+        else if (relation > 0)
+            return binarySearch(seq, key, mid + 1, hi);
+        else
+            return mid;
     }
 
     private static <T extends Comparable<? super T>> void insertionSort(T[] seq, int lo, int hi) {
