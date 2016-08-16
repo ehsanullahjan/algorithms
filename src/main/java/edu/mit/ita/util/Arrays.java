@@ -1,8 +1,12 @@
 package edu.mit.ita.util;
 
+import java.util.Random;
+
 import static edu.mit.ita.util.Comparables.lt;
 
 public final class Arrays {
+    private static final Random random = new Random();
+
     private Arrays() {
     }
 
@@ -12,6 +16,13 @@ public final class Arrays {
         T temp = seq[i];
         seq[i] = seq[j];
         seq[j] = temp;
+    }
+
+    public static Integer[] randomIntSeq(int size) {
+        Integer[] seq = new Integer[size];
+        for (int i = 0; i < size; i++)
+            seq[i] = random.nextInt();
+        return seq;
     }
 
     public static <T extends Comparable<? super T>> int binarySearch(T[] seq, T key) {

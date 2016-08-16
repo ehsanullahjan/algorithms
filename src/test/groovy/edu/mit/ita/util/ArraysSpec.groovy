@@ -6,7 +6,7 @@ import spock.lang.Unroll
 import static edu.mit.ita.util.Arrays.*
 
 class ArraysSpec extends Specification {
-    private static final Random random = new Random();
+    private static final int MAX_SEQ_SIZE = 100;
 
     def "Can find number in sorted array using binary search"() {
         given:
@@ -34,13 +34,7 @@ class ArraysSpec extends Specification {
 
         where:
         method           | sort                  | items
-        "insertion sort" | { insertionSort(it) } | randomSeq()
-        "merge sort"     | { mergeSort(it) }     | randomSeq()
-    }
-
-    private def static Integer[] randomSeq(int n = 10, int bound = 100) {
-        Integer[] nums = new Integer[n];
-        nums.indices.each {nums[it] = random.nextInt(bound)}
-        return nums
+        "insertion sort" | { insertionSort(it) } | randomIntSeq(MAX_SEQ_SIZE)
+        "merge sort"     | { mergeSort(it) }     | randomIntSeq(MAX_SEQ_SIZE)
     }
 }
