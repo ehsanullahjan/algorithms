@@ -50,7 +50,7 @@ public final class Arrays {
         // Loop invariant: seq[0..j-1] is always sorted
         for (int i = lo + 1; i <= hi; i++) {
             int j = i;
-            while (j > 0 && lt(seq[j], seq[j - 1])) {
+            while (j > lo && lt(seq[j], seq[j - 1])) {
                 swap(seq, j, j - 1);
                 j--;
             }
