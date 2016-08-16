@@ -3,9 +3,7 @@ package edu.mit.ita.util
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static edu.mit.ita.util.Arrays.binarySearch
-import static edu.mit.ita.util.Arrays.insertionSort
-import static edu.mit.ita.util.Arrays.mergeSort
+import static edu.mit.ita.util.Arrays.*
 import static edu.mit.ita.util.Comparables.le
 
 class ArraysSpec extends Specification {
@@ -36,9 +34,9 @@ class ArraysSpec extends Specification {
         isSorted(items)
 
         where:
-        method                | sort                  | items
-        "insertion mergeSort" | { insertionSort(it) } | randomSeq()
-        "merge mergeSort"     | { mergeSort(it) }     | randomSeq()
+        method           | sort                  | items
+        "insertion sort" | { insertionSort(it) } | randomSeq()
+        "merge sort"     | { mergeSort(it) }     | randomSeq()
     }
 
     private def static Integer[] randomSeq(int n = 10, int bound = 100) {
