@@ -3,8 +3,11 @@ package edu.mit.ita.util;
 import static edu.mit.ita.util.Arrays.isSorted;
 import static edu.mit.ita.util.Arrays.isTriviallySorted;
 import static edu.mit.ita.util.Comparables.lt;
+import static edu.mit.ita.util.SortMethods.insertionSort;
 
 final class MergeSort {
+    private static final int ALT_SORT_THRESHOLD = 7;
+
     private MergeSort() {
     }
 
@@ -20,9 +23,17 @@ final class MergeSort {
         if (isTriviallySorted(seq, lo, hi)) return;
 
         int mid = lo + (hi - lo) / 2;
-        sort(seq, auxSeq, lo, mid);
-        sort(seq, auxSeq, mid + 1, hi);
+        bestSort(seq, auxSeq, lo, mid);
+        bestSort(seq, auxSeq, mid + 1, hi);
         merge(seq, auxSeq, lo, mid, hi);
+    }
+
+    private static <T extends Comparable<? super T>> void bestSort(T[] seq, T[] auxSeq, int lo, int hi) {
+        int elementsToSort = hi - lo + 1;
+        if (elementsToSort >= ALT_SORT_THRESHOLD)
+            insertionSort(seq, lo, hi);
+        else
+            sort(seq, auxSeq, lo, hi);
     }
 
     private static <T extends Comparable<? super T>> void merge(T[] seq, T[] auxSeq, int lo, int mid, int hi) {
@@ -36,11 +47,10 @@ final class MergeSort {
 
         // Merge (in sorted order) auxSeq[lo..mid] and auxSeq[hi..mid+1] into seq[lo..hi]
         for (i = lo, j = hi, k = lo; k <= hi; k++) {
-            if (lt(auxSeq[i], auxSeq[j])) {
+            if (lt(auxSeq[i], auxSeq[j]))
                 seq[k] = auxSeq[i++];
-            } else {
+            else
                 seq[k] = auxSeq[j--];
-            }
         }
     }
 }
