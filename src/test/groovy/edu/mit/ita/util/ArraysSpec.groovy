@@ -4,7 +4,6 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 import static edu.mit.ita.util.Arrays.*
-import static edu.mit.ita.util.Comparables.le
 
 class ArraysSpec extends Specification {
     private static final Random random = new Random();
@@ -43,9 +42,5 @@ class ArraysSpec extends Specification {
         Integer[] nums = new Integer[n];
         nums.indices.each {nums[it] = random.nextInt(bound)}
         return nums
-    }
-
-    private def static <T extends Comparable<? super T>> boolean isSorted(T[] seq) {
-        (0..<seq.length - 1).every {le(seq[it], seq[it + 1])}
     }
 }

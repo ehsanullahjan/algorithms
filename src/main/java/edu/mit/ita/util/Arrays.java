@@ -101,11 +101,11 @@ public final class Arrays {
         return seq == null || seq.length <= 1;
     }
 
-    private static <E extends Comparable<? super E>> boolean isSorted(E[] seq) {
+    static <E extends Comparable<? super E>> boolean isSorted(E[] seq) {
         return isSorted(seq, 0, seq.length - 1);
     }
 
-    private static <E extends Comparable<? super E>> boolean isSorted(E[] seq, int lo, int hi) {
+    static <E extends Comparable<? super E>> boolean isSorted(E[] seq, int lo, int hi) {
         for (int i = hi; i > lo; i--) {
             if (lt(seq[i], seq[i - 1])) return false;
         }
