@@ -6,7 +6,7 @@ import static Comparables.max
 import static Comparables.min
 import static edu.mit.ita.util.Comparables.*
 
-class ComparableUtilSpec extends Specification {
+class ComparablesSpec extends Specification {
     private static final String[] seq = ["B", "F", "Z", "J", "X", "L", "Y", "M", "D"]
 
     def "Can find minimum in a comparable sequence"(int lo, int hi, String result) {

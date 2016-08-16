@@ -45,7 +45,7 @@ public final class Arrays {
     }
 
     private static <T extends Comparable<? super T>> void insertionSort(T[] seq, int lo, int hi) {
-        if (isTriviallySorted(seq)) return;
+        if (isTriviallySorted(seq, lo, hi)) return;
 
         // Loop invariant: seq[0..j-1] is always sorted
         for (int i = lo + 1; i <= hi; i++) {
