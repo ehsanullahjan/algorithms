@@ -1,5 +1,7 @@
 package edu.mit.ita.util;
 
+import static edu.mit.ita.util.Arrays.isSorted;
+import static edu.mit.ita.util.Arrays.isTriviallySorted;
 import static edu.mit.ita.util.Comparables.lt;
 
 final class MergeSort {
@@ -8,19 +10,14 @@ final class MergeSort {
 
     @SuppressWarnings("unchecked")
     static <T extends Comparable<? super T>> void sort(T[] seq) {
-        // Trivially sorted
-        if (seq == null || seq.length <= 1) {
-            return;
-        }
+        if (isTriviallySorted(seq)) return;
 
         T[] auxSeq = (T[])new Comparable<?>[seq.length];
         sort(seq, auxSeq, 0, seq.length - 1);
     }
 
     private static <T extends Comparable<? super T>> void sort(T[] seq, T[] auxSeq, int lo, int hi) {
-        if (lo >= hi) {
-            return;
-        }
+        if (isTriviallySorted(seq, lo, hi)) return;
 
         int mid = lo + (hi - lo) / 2;
         sort(seq, auxSeq, lo, mid);
@@ -28,21 +25,16 @@ final class MergeSort {
         merge(seq, auxSeq, lo, mid, hi);
     }
 
-    // Precondition: seq[lo..mid] and seq[mid+1..hi] must be sorted
     private static <T extends Comparable<? super T>> void merge(T[] seq, T[] auxSeq, int lo, int mid, int hi) {
-        int i, j, k;
+        assert isSorted(seq, lo, mid);
+        assert isSorted(seq, mid + 1, hi);
 
-        // Copy seq[lo..mid] to auxSeq[lo..mid]
-        for (i = lo, k = lo; i <= mid; i++, k++) {
-            auxSeq[k] = seq[i];
-        }
+        // Copy seq[lo..mid] to auxSeq[lo..mid] and seq[hi..mid+1] to auxSeq[mid+1..hi]
+        int i = lo, j = hi, k = lo;
+        while (i <= mid) auxSeq[k++] = seq[i++];
+        while (j > mid) auxSeq[k++] = seq[j--];
 
-        // Reverse copy seq[hi..mid+1] to auxSeq[mid+1..hi]
-        for (j = hi; j > mid; j--, k++) {
-            auxSeq[k] = seq[j];
-        }
-
-        // Merge auxSeq[lo..mid] and auxSeq[hi..mid+1] back into seq[lo..hi]
+        // Merge (in sorted order) auxSeq[lo..mid] and auxSeq[hi..mid+1] into seq[lo..hi]
         for (i = lo, j = hi, k = lo; k <= hi; k++) {
             if (lt(auxSeq[i], auxSeq[j])) {
                 seq[k] = auxSeq[i++];
