@@ -8,6 +8,10 @@ public final class SortMethods {
         InsertionSort.sort(seq);
     }
 
+    public static <T extends Comparable<? super T>> void insertionSort(T[] seq, int lo, int hi) {
+        InsertionSort.sort(seq, lo, hi);
+    }
+
     public static <T extends Comparable<? super T>> void mergeSort(T[] seq) {
         MergeSort.sort(seq);
     }
