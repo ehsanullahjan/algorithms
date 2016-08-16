@@ -54,10 +54,10 @@ public final class Arrays {
     private static <T extends Comparable<? super T>> void bestSort(T[] seq, T[] auxSeq, int lo, int hi) {
         final int altSortThreshold = 7;
         int elementsToSort = hi - lo + 1;
-        if (elementsToSort >= altSortThreshold)
-            insertionSort(seq, lo, hi);
-        else
+        if (elementsToSort > altSortThreshold)
             mergeSort(seq, auxSeq, lo, hi);
+        else
+            insertionSort(seq, lo, hi);
     }
 
     private static <T extends Comparable<? super T>> void merge(T[] seq, T[] auxSeq, int lo, int mid, int hi) {
