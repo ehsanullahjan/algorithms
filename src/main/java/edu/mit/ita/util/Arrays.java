@@ -16,19 +16,81 @@ public final class Arrays {
         seq[j] = temp;
     }
 
-    public static <E> boolean isTriviallySorted(E[] seq, int lo, int hi) {
+    public static <T extends Comparable<? super T>> void insertionSort(T[] seq) {
+        if (isTriviallySorted(seq)) return;
+        insertionSort(seq, 0, seq.length - 1);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends Comparable<? super T>> void mergeSort(T[] seq) {
+        if (isTriviallySorted(seq)) return;
+
+        T[] auxSeq = (T[])new Comparable<?>[seq.length];
+        mergeSort(seq, auxSeq, 0, seq.length - 1);
+    }
+
+    private static <T extends Comparable<? super T>> void insertionSort(T[] seq, int lo, int hi) {
+        if (isTriviallySorted(seq)) return;
+
+        // Loop invariant: seq[0..j-1] is always sorted
+        for (int i = lo + 1; i <= hi; i++) {
+            int j = i;
+            while (j > 0 && lt(seq[j], seq[j - 1])) {
+                swap(seq, j, j - 1);
+                j--;
+            }
+        }
+    }
+
+    private static <T extends Comparable<? super T>> void mergeSort(T[] seq, T[] auxSeq, int lo, int hi) {
+        if (isTriviallySorted(seq, lo, hi)) return;
+
+        int mid = lo + (hi - lo) / 2;
+        bestSort(seq, auxSeq, lo, mid);
+        bestSort(seq, auxSeq, mid + 1, hi);
+        merge(seq, auxSeq, lo, mid, hi);
+    }
+
+    private static <T extends Comparable<? super T>> void bestSort(T[] seq, T[] auxSeq, int lo, int hi) {
+        final int altSortThreshold = 7;
+        int elementsToSort = hi - lo + 1;
+        if (elementsToSort >= altSortThreshold)
+            insertionSort(seq, lo, hi);
+        else
+            mergeSort(seq, auxSeq, lo, hi);
+    }
+
+    private static <T extends Comparable<? super T>> void merge(T[] seq, T[] auxSeq, int lo, int mid, int hi) {
+        assert isSorted(seq, lo, mid);
+        assert isSorted(seq, mid + 1, hi);
+
+        // Copy seq[lo..mid] to auxSeq[lo..mid] and seq[hi..mid+1] to auxSeq[mid+1..hi]
+        int i = lo, j = hi, k = lo;
+        while (i <= mid) auxSeq[k++] = seq[i++];
+        while (j > mid) auxSeq[k++] = seq[j--];
+
+        // Merge (in sorted order) auxSeq[lo..mid] and auxSeq[hi..mid+1] into seq[lo..hi]
+        for (i = lo, j = hi, k = lo; k <= hi; k++) {
+            if (lt(auxSeq[i], auxSeq[j]))
+                seq[k] = auxSeq[i++];
+            else
+                seq[k] = auxSeq[j--];
+        }
+    }
+
+    private static <E> boolean isTriviallySorted(E[] seq, int lo, int hi) {
         return isTriviallySorted(seq) || lo == hi;
     }
 
-    public static <E> boolean isTriviallySorted(E[] seq) {
+    private static <E> boolean isTriviallySorted(E[] seq) {
         return seq == null || seq.length <= 1;
     }
 
-    public static <E extends Comparable<? super E>> boolean isSorted(E[] seq) {
+    private static <E extends Comparable<? super E>> boolean isSorted(E[] seq) {
         return isSorted(seq, 0, seq.length - 1);
     }
 
-    public static <E extends Comparable<? super E>> boolean isSorted(E[] seq, int lo, int hi) {
+    private static <E extends Comparable<? super E>> boolean isSorted(E[] seq, int lo, int hi) {
         for (int i = hi; i > lo; i--) {
             if (lt(seq[i], seq[i - 1])) return false;
         }
