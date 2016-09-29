@@ -49,7 +49,7 @@ public abstract class PriorityQueue<T extends Comparable<? super T>> implements 
     @Override
     public void enqueue(T element) {
         if (isFull())
-            resize();
+            resize(elements.length * 2);
 
         elements[size++] = element;
         siftUp(size - 1);
@@ -148,10 +148,6 @@ public abstract class PriorityQueue<T extends Comparable<? super T>> implements 
 
     private boolean isFull() {
         return size == elements.length;
-    }
-
-    private void resize() {
-        resize(elements.length * 2);
     }
 
     private void resize(int capacity) {
