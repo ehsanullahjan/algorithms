@@ -38,11 +38,8 @@ public class DynamicArrayBag<T> implements Collection<T> {
             return false;
         }
 
-        elements[i] = null;
-        for (int j = i; j < index - 1; j++) {
-            elements[j] = elements[j + 1];
-        }
-        index--;
+        elements[i] = elements[--index];
+        elements[index] = null;
 
         if (loadFactor() <= 0.25F) {
             resize(capacity() / 2);
@@ -58,7 +55,7 @@ public class DynamicArrayBag<T> implements Collection<T> {
 
     @Override
     public void clear() {
-        for (int i = 0; i < elements.length; i++) {
+        for (int i = 0; i < size(); i++) {
             elements[i] = null;
         }
 
@@ -76,7 +73,7 @@ public class DynamicArrayBag<T> implements Collection<T> {
 
     @Override
     public boolean isEmpty() {
-        return index == 0;
+        return size() == 0;
     }
 
     @Override
