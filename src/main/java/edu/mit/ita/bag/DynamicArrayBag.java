@@ -6,6 +6,8 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static java.lang.System.arraycopy;
+
 public class DynamicArrayBag<T> implements Collection<T> {
     private T[] elements;
     private int index;
@@ -30,7 +32,6 @@ public class DynamicArrayBag<T> implements Collection<T> {
     }
 
     @Override
-    @SuppressWarnings("ManualArrayCopy")
     public boolean remove(T element) {
         int i = indexOf(element);
         if (i < 0) {
@@ -122,13 +123,10 @@ public class DynamicArrayBag<T> implements Collection<T> {
         return (float)size() / (float)capacity();
     }
 
-    @SuppressWarnings({"unchecked", "ManualArrayCopy"})
+    @SuppressWarnings({"unchecked"})
     private void resize(int capacity) {
         T[] temp = (T[])new Object[capacity];
-        for (int i = 0; i < index; i++) {
-            temp[i] = elements[i];
-        }
-
+        arraycopy(elements, 0, temp, 0, size());
         elements = temp;
     }
 }

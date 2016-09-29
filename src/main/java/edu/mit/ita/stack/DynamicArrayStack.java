@@ -5,6 +5,8 @@ import edu.mit.ita.adt.Stack;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static java.lang.System.arraycopy;
+
 public class DynamicArrayStack<T> implements Stack<T> {
     private T[] elements;
     private int top;
@@ -72,13 +74,10 @@ public class DynamicArrayStack<T> implements Stack<T> {
         return (float)size() / (float)capacity();
     }
 
-    @SuppressWarnings({"unchecked", "ManualArrayCopy"})
+    @SuppressWarnings({"unchecked"})
     private void resize(int capacity) {
         T[] temp = (T[])new Object[capacity];
-        for (int i = 0; i <= top; i++) {
-            temp[i] = elements[i];
-        }
-
+        arraycopy(elements, 0, temp, 0, size());
         elements = temp;
     }
 }
