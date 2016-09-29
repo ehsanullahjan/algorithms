@@ -10,7 +10,6 @@ public class DynamicArrayBag<T> implements Collection<T> {
     private T[] elements;
     private int index;
 
-    @SuppressWarnings("unchecked")
     public DynamicArrayBag() {
         this(16);
     }
