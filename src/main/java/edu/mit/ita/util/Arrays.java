@@ -21,8 +21,9 @@ public final class Arrays {
 
     public static Integer[] randomIntSeq(int size) {
         Integer[] seq = new Integer[size];
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++) {
             seq[i] = random.nextInt();
+        }
         return seq;
     }
 

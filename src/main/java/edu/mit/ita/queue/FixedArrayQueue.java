@@ -19,9 +19,8 @@ public class FixedArrayQueue<T> implements Queue<T> {
 
     @Override
     public void enqueue(T element) {
-        if (isFull()) {
+        if (isFull())
             throw new IllegalStateException("Queue overflow");
-        }
 
         int back = (front + size) % capacity();
         elements[back] = element;
@@ -40,9 +39,8 @@ public class FixedArrayQueue<T> implements Queue<T> {
 
     @Override
     public T peek() {
-        if (isEmpty()) {
+        if (isEmpty())
             throw new NoSuchElementException();
-        }
 
         return elements[front];
     }

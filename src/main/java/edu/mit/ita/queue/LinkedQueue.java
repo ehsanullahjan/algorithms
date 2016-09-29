@@ -30,9 +30,8 @@ public class LinkedQueue<T> implements Queue<T> {
         front.next = node.next;
         size--;
 
-        if (isEmpty()) {
+        if (isEmpty())
             back = front;
-        }
 
         return node.element;
     }
@@ -64,9 +63,8 @@ public class LinkedQueue<T> implements Queue<T> {
 
             @Override
             public T next() {
-                if (!hasNext()) {
+                if (!hasNext())
                     throw new NoSuchElementException();
-                }
 
                 T element = node.element;
                 node = node.next;
@@ -76,14 +74,13 @@ public class LinkedQueue<T> implements Queue<T> {
     }
 
     private Node<T> peek0() {
-        if (isEmpty()) {
+        if (isEmpty())
             throw new NoSuchElementException();
-        }
 
         return front.next;
     }
 
-    private static class Node<T> {
+    private static final class Node<T> {
         final T element;
         Node<T> next;
 

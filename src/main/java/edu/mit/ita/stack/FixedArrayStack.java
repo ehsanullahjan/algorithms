@@ -17,9 +17,8 @@ public class FixedArrayStack<T> implements Stack<T> {
 
     @Override
     public void push(T element) {
-        if (isFull()) {
+        if (isFull())
             throw new IllegalStateException("Stack overflow");
-        }
 
         elements[++top] = element;
     }
@@ -33,9 +32,8 @@ public class FixedArrayStack<T> implements Stack<T> {
 
     @Override
     public T peek() {
-        if (isEmpty()) {
+        if (isEmpty())
             throw new NoSuchElementException();
-        }
 
         return elements[top];
     }

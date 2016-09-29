@@ -23,9 +23,8 @@ public class DynamicArrayQueue<T> implements Queue<T> {
 
     @Override
     public void enqueue(T element) {
-        if (loadFactor() >= 1.0F) {
+        if (loadFactor() >= 1.0F)
             resize(capacity() * 2);
-        }
 
         int back = (front + size) % capacity();
         elements[back] = element;
@@ -39,18 +38,16 @@ public class DynamicArrayQueue<T> implements Queue<T> {
         front = (front + 1) % capacity();
         size--;
 
-        if (loadFactor() <= 0.25F) {
+        if (loadFactor() <= 0.25F)
             resize(capacity() / 2);
-        }
 
         return element;
     }
 
     @Override
     public T peek() {
-        if (isEmpty()) {
+        if (isEmpty())
             throw new NoSuchElementException();
-        }
 
         return elements[front];
     }

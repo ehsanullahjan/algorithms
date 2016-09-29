@@ -24,9 +24,8 @@ public class DynamicArrayBag<T> implements Collection<T> {
 
     @Override
     public void add(T element) {
-        if (loadFactor() >= 1.0F) {
+        if (loadFactor() >= 1.0F)
             resize(capacity() * 2);
-        }
 
         elements[index++] = element;
     }
@@ -34,16 +33,13 @@ public class DynamicArrayBag<T> implements Collection<T> {
     @Override
     public boolean remove(T element) {
         int i = indexOf(element);
-        if (i < 0) {
-            return false;
-        }
+        if (i < 0) return false;
 
         elements[i] = elements[--index];
         elements[index] = null;
 
-        if (loadFactor() <= 0.25F) {
+        if (loadFactor() <= 0.25F)
             resize(capacity() / 2);
-        }
 
         return true;
     }
@@ -89,13 +85,11 @@ public class DynamicArrayBag<T> implements Collection<T> {
 
             @Override
             public T next() {
-                if (!hasNext()) {
+                if (!hasNext())
                     throw new NoSuchElementException();
-                }
 
-                if (size != size()) {
+                if (size != size())
                     throw new ConcurrentModificationException();
-                }
 
                 return elements[i++];
             }
@@ -103,9 +97,8 @@ public class DynamicArrayBag<T> implements Collection<T> {
     }
 
     private int indexOf(T element) {
-        if (isEmpty() || element == null) {
+        if (isEmpty() || element == null)
             return -1;
-        }
 
         for (int i = 0; i < index; i++) {
             if (elements[i].equals(element)) {

@@ -22,9 +22,8 @@ class ArrayStackIterator<T> implements Iterator<T> {
 
     @Override
     public T next() {
-        if (!hasNext()) {
+        if (!hasNext())
             throw new NoSuchElementException();
-        }
 
         return elements[top--];
     }

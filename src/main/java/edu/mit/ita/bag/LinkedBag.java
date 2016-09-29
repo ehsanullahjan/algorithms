@@ -10,7 +10,7 @@ public class LinkedBag<T> implements Collection<T> {
     private int size;
 
     public LinkedBag() {
-        this.head = Node.empty();
+        this.head = Node.sentinel();
         this.size = 0;
     }
 
@@ -24,9 +24,8 @@ public class LinkedBag<T> implements Collection<T> {
 
     @Override
     public boolean remove(T element) {
-        if (element == null || isEmpty()) {
+        if (element == null || isEmpty())
             return false;
-        }
 
         Node<T> i = head;
         Node<T> j = head.next;
@@ -46,9 +45,8 @@ public class LinkedBag<T> implements Collection<T> {
 
     @Override
     public boolean contains(T element) {
-        if (element == null) {
+        if (element == null)
             return false;
-        }
 
         for (Node<T> node = head.next; node != null; node = node.next) {
             if (element.equals(node.element)) {
@@ -87,9 +85,8 @@ public class LinkedBag<T> implements Collection<T> {
 
             @Override
             public T next() {
-                if (!hasNext()) {
+                if (!hasNext())
                     throw new NoSuchElementException();
-                }
 
                 Node<T> x = current;
                 current = current.next;
@@ -98,7 +95,7 @@ public class LinkedBag<T> implements Collection<T> {
         };
     }
 
-    private static class Node<T> {
+    private static final class Node<T> {
         final T element;
         Node<T> next;
 
@@ -106,7 +103,7 @@ public class LinkedBag<T> implements Collection<T> {
             this.element = element;
         }
 
-        static <T> Node<T> empty() {
+        static <T> Node<T> sentinel() {
             return new Node<>(null);
         }
     }

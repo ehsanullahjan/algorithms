@@ -70,7 +70,9 @@ public abstract class PriorityQueue<T extends Comparable<? super T>> implements 
 
     @Override
     public T peek() {
-        if (isEmpty()) throw new NoSuchElementException();
+        if (isEmpty())
+            throw new NoSuchElementException();
+
         return elements[0];
     }
 

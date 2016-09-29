@@ -59,16 +59,13 @@ public final class Comparables {
     }
 
     private static <T extends Comparable<? super T>> void validate(T[] seq, int lo, int hi) {
-        if (seq == null || seq.length == 0) {
+        if (seq == null || seq.length == 0)
             throw new IllegalArgumentException("seq is null or empty");
-        }
 
-        if (lo < 0 || lo > hi) {
+        if (lo < 0 || lo > hi)
             throw new IllegalArgumentException("lo < 0 or lo > hi");
-        }
 
-        if (hi > seq.length) {
+        if (hi > seq.length)
             throw new IllegalArgumentException("hi > seq.length");
-        }
     }
 }

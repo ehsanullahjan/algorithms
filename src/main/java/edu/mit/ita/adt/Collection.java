@@ -5,7 +5,6 @@ public interface Collection<T> extends Iterable<T> {
     boolean remove(T element);
     boolean contains(T element);
     void clear();
-
     int size();
     boolean isEmpty();
 }

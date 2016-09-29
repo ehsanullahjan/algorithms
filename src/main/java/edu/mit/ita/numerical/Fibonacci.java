@@ -1,25 +1,22 @@
 package edu.mit.ita.numerical;
 
-public class Fibonacci {
+public final class Fibonacci {
     private Fibonacci() {
     }
 
     public static long recursive(long n) {
-        if (n < 0) {
+        if (n < 0)
             throw new IllegalArgumentException("n < 0");
-        }
 
-        if (n < 2) {
+        if (n < 2)
             return n;
-        } else {
-            return Fibonacci.recursive(n - 1) + Fibonacci.recursive(n - 2);
-        }
+
+        return Fibonacci.recursive(n - 1) + Fibonacci.recursive(n - 2);
     }
 
     public static long dynamic(long n) {
-        if (n < 0) {
+        if (n < 0)
             throw new IllegalArgumentException("n < 0");
-        }
 
         int r = 0;
         int a = 0;

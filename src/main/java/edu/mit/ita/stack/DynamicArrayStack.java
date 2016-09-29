@@ -23,9 +23,8 @@ public class DynamicArrayStack<T> implements Stack<T> {
 
     @Override
     public void push(T element) {
-        if (loadFactor() >= 1.0F) {
+        if (loadFactor() >= 1.0F)
             resize(capacity() * 2);
-        }
 
         elements[++top] = element;
     }
@@ -35,18 +34,16 @@ public class DynamicArrayStack<T> implements Stack<T> {
         T element = peek();
         elements[top--] = null;
 
-        if (loadFactor() <= 0.25F) {
+        if (loadFactor() <= 0.25F)
             resize(capacity() / 2);
-        }
 
         return element;
     }
 
     @Override
     public T peek() {
-        if (isEmpty()) {
+        if (isEmpty())
             throw new NoSuchElementException();
-        }
 
         return elements[top];
     }

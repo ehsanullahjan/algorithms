@@ -23,9 +23,8 @@ class ArrayQueueIterator<T> implements Iterator<T> {
 
     @Override
     public T next() {
-        if (!hasNext()) {
+        if (!hasNext())
             throw new NoSuchElementException();
-        }
 
         return elements[(front + index++) % elements.length];
     }

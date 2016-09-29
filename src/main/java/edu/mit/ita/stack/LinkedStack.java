@@ -58,9 +58,8 @@ public class LinkedStack<T> implements Stack<T> {
 
             @Override
             public T next() {
-                if (!hasNext()) {
+                if (!hasNext())
                     throw new NoSuchElementException();
-                }
 
                 T element = top.element;
                 top = top.next;
@@ -70,14 +69,13 @@ public class LinkedStack<T> implements Stack<T> {
     }
 
     private Node<T> peek0() {
-        if (isEmpty()) {
+        if (isEmpty())
             throw new NoSuchElementException();
-        }
 
         return head.next;
     }
 
-    private static class Node<T> {
+    private static final class Node<T> {
         final T element;
         Node<T> next;
 
