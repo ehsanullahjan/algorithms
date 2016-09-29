@@ -2,6 +2,7 @@ package edu.mit.ita.util;
 
 import java.util.Random;
 
+import static edu.mit.ita.util.Comparables.le;
 import static edu.mit.ita.util.Comparables.lt;
 
 public final class Arrays {
@@ -97,7 +98,7 @@ public final class Arrays {
 
         // Merge (in sorted order) auxSeq[lo..mid] and auxSeq[hi..mid+1] into seq[lo..hi]
         for (i = lo, j = hi, k = lo; k <= hi; k++) {
-            if (lt(auxSeq[i], auxSeq[j]))
+            if (le(auxSeq[i], auxSeq[j]))
                 seq[k] = auxSeq[i++];
             else
                 seq[k] = auxSeq[j--];
