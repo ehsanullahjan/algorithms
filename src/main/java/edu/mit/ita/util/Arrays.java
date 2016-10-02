@@ -126,15 +126,17 @@ public final class Arrays {
     private static <E extends Comparable<? super E>> void quickSort(E[] seq, int lo, int hi) {
         if (lo >= hi) return;
 
-        swap(seq, pivot(seq, lo, hi), hi);
-        int p = partition(seq, lo, hi - 1, seq[hi]);
-        swap(seq, p, hi);
+        int pivot = pickPivot(seq, lo, hi);
+        swap(seq, pivot, hi);
 
-        quickSort(seq, lo, p - 1);
-        quickSort(seq, p + 1, hi);
+        int mid = partition(seq, lo, hi - 1, seq[hi]);
+        swap(seq, mid, hi);
+
+        quickSort(seq, lo, mid - 1);
+        quickSort(seq, mid + 1, hi);
     }
 
-    private static <E> int pivot(E[] seq, int lo, int hi) {
+    private static <E> int pickPivot(E[] seq, int lo, int hi) {
         return lo + (hi - lo) / 2;
     }
 
