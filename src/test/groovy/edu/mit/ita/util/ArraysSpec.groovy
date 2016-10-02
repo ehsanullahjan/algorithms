@@ -37,4 +37,18 @@ class ArraysSpec extends Specification {
         "insertion sort" | { insertionSort(it) } | randomIntSeq(MAX_SEQ_SIZE)
         "merge sort"     | { mergeSort(it) }     | randomIntSeq(MAX_SEQ_SIZE)
     }
+
+    def "Can shuffle a sorted sequence"() {
+        given:
+        Integer[] seq = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        when:
+        shuffle(seq)
+
+        then:
+        int threshold = 3;
+        int stickies = 0;
+        seq.eachWithIndex { element, index -> if (element == index) stickies++ }
+        stickies <= threshold
+    }
 }

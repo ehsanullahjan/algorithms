@@ -1,6 +1,7 @@
 package edu.mit.ita.util;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static edu.mit.ita.util.Comparables.le;
 import static edu.mit.ita.util.Comparables.lt;
@@ -25,6 +26,17 @@ public final class Arrays {
             seq[i] = random.nextInt();
         }
         return seq;
+    }
+
+    public static <T> void shuffle(T[] seq) {
+        if (isTriviallySorted(seq)) return;
+
+        int hi = seq.length;
+        for (int lo = 0; lo < hi - 1; lo++) {
+            int random = ThreadLocalRandom.current()
+                                          .nextInt(lo, hi);
+            swap(seq, lo, random);
+        }
     }
 
     public static <T extends Comparable<? super T>> int binarySearch(T[] seq, T key) {
