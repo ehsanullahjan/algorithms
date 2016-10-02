@@ -30,11 +30,10 @@ public final class Arrays {
     public static <E> void shuffle(E[] seq) {
         if (isTriviallySorted(seq)) return;
 
-        int hi = seq.length;
-        for (int lo = 0; lo < hi - 1; lo++) {
-            int random = ThreadLocalRandom.current()
-                                          .nextInt(lo, hi);
-            swap(seq, lo, random);
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        for (int i = 0; i < seq.length - 1; i++) {
+            int j = random.nextInt(i, seq.length);
+            swap(seq, i, j);
         }
     }
 
