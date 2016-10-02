@@ -36,6 +36,7 @@ class ArraysSpec extends Specification {
         method           | sort                  | items
         "insertion sort" | { insertionSort(it) } | randomIntSeq(MAX_SEQ_SIZE)
         "merge sort"     | { mergeSort(it) }     | randomIntSeq(MAX_SEQ_SIZE)
+        "quick sort"     | { quickSort(it) }     | randomIntSeq(MAX_SEQ_SIZE)
     }
 
     def "Can shuffle a sorted sequence"() {

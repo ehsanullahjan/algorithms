@@ -3,8 +3,7 @@ package edu.mit.ita.util;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static edu.mit.ita.util.Comparables.le;
-import static edu.mit.ita.util.Comparables.lt;
+import static edu.mit.ita.util.Comparables.*;
 
 public final class Arrays {
     private static final Random random = new Random();
@@ -54,6 +53,13 @@ public final class Arrays {
 
         T[] auxSeq = (T[])new Comparable<?>[seq.length];
         mergeSort(seq, auxSeq, 0, seq.length - 1);
+    }
+
+    public static <T extends Comparable<? super T>> void quickSort(T[] seq) {
+        if (isTriviallySorted(seq)) return;
+
+        quickSort(seq, 0, seq.length - 1);
+        assert isSorted(seq);
     }
 
     private static <T extends Comparable<? super T>> int binarySearch(T[] seq, T key, int lo, int hi) {
@@ -116,6 +122,32 @@ public final class Arrays {
             else
                 seq[k] = auxSeq[j--];
         }
+    }
+
+    private static <T extends Comparable<? super T>> void quickSort(T[] seq, int lo, int hi) {
+        if (lo >= hi) return;
+
+        swap(seq, pivot(seq, lo, hi), hi);
+        int p = partition(seq, lo, hi - 1, seq[hi]);
+        swap(seq, p, hi);
+
+        quickSort(seq, lo, p - 1);
+        quickSort(seq, p + 1, hi);
+    }
+
+    private static <E> int pivot(E[] seq, int lo, int hi) {
+        return lo + (hi - lo) / 2;
+    }
+
+    private static <T extends Comparable<? super T>> int partition(T[] seq, int lo, int hi, T pivot) {
+        int i = lo;
+        int j = hi;
+        while (i <= j) {
+            while (i <= j && le(seq[i], pivot)) i++;
+            while (j >= i && gt(seq[j], pivot)) j--;
+            if (i < j) swap(seq, i, j);
+        }
+        return i;
     }
 
     private static <E> boolean isTriviallySorted(E[] seq, int lo, int hi) {
