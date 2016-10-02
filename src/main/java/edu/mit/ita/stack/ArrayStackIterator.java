@@ -3,11 +3,11 @@ package edu.mit.ita.stack;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-class ArrayStackIterator<T> implements Iterator<T> {
-    private final T[] elements;
+class ArrayStackIterator<E> implements Iterator<E> {
+    private final E[] elements;
     private int top;
 
-    ArrayStackIterator(T[] elements, int top) {
+    ArrayStackIterator(E[] elements, int top) {
         assert elements != null;
         assert top < elements.length;
 
@@ -21,7 +21,7 @@ class ArrayStackIterator<T> implements Iterator<T> {
     }
 
     @Override
-    public T next() {
+    public E next() {
         if (!hasNext())
             throw new NoSuchElementException();
 

@@ -5,20 +5,20 @@ import edu.mit.ita.adt.Queue;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class FixedArrayQueue<T> implements Queue<T> {
-    private final T[] elements;
+public class FixedArrayQueue<E> implements Queue<E> {
+    private final E[] elements;
     private int front;
     private int size;
 
     @SuppressWarnings("unchecked")
     public FixedArrayQueue(int capacity) {
-        this.elements = (T[])new Object[capacity];
+        this.elements = (E[])new Object[capacity];
         this.front = 0;
         this.size = 0;
     }
 
     @Override
-    public void enqueue(T element) {
+    public void enqueue(E element) {
         if (isFull())
             throw new IllegalStateException("Queue overflow");
 
@@ -28,8 +28,8 @@ public class FixedArrayQueue<T> implements Queue<T> {
     }
 
     @Override
-    public T dequeue() {
-        T element = peek();
+    public E dequeue() {
+        E element = peek();
         elements[front] = null;
         front = (front + 1) % capacity();
         size--;
@@ -38,7 +38,7 @@ public class FixedArrayQueue<T> implements Queue<T> {
     }
 
     @Override
-    public T peek() {
+    public E peek() {
         if (isEmpty())
             throw new NoSuchElementException();
 
@@ -64,7 +64,7 @@ public class FixedArrayQueue<T> implements Queue<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return new ArrayQueueIterator<>(elements, front, size);
     }
 }

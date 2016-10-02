@@ -11,10 +11,10 @@ public final class Arrays {
     private Arrays() {
     }
 
-    public static <T> void swap(T[] seq, int i, int j) {
+    public static <E> void swap(E[] seq, int i, int j) {
         if (i == j) return;
 
-        T temp = seq[i];
+        E temp = seq[i];
         seq[i] = seq[j];
         seq[j] = temp;
     }
@@ -27,7 +27,7 @@ public final class Arrays {
         return seq;
     }
 
-    public static <T> void shuffle(T[] seq) {
+    public static <E> void shuffle(E[] seq) {
         if (isTriviallySorted(seq)) return;
 
         int hi = seq.length;
@@ -38,31 +38,31 @@ public final class Arrays {
         }
     }
 
-    public static <T extends Comparable<? super T>> int binarySearch(T[] seq, T key) {
+    public static <E extends Comparable<? super E>> int binarySearch(E[] seq, E key) {
         return binarySearch(seq, key, 0, seq.length);
     }
 
-    public static <T extends Comparable<? super T>> void insertionSort(T[] seq) {
+    public static <E extends Comparable<? super E>> void insertionSort(E[] seq) {
         if (isTriviallySorted(seq)) return;
         insertionSort(seq, 0, seq.length - 1);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends Comparable<? super T>> void mergeSort(T[] seq) {
+    public static <E extends Comparable<? super E>> void mergeSort(E[] seq) {
         if (isTriviallySorted(seq)) return;
 
-        T[] auxSeq = (T[])new Comparable<?>[seq.length];
+        E[] auxSeq = (E[])new Comparable<?>[seq.length];
         mergeSort(seq, auxSeq, 0, seq.length - 1);
     }
 
-    public static <T extends Comparable<? super T>> void quickSort(T[] seq) {
+    public static <E extends Comparable<? super E>> void quickSort(E[] seq) {
         if (isTriviallySorted(seq)) return;
 
         quickSort(seq, 0, seq.length - 1);
         assert isSorted(seq);
     }
 
-    private static <T extends Comparable<? super T>> int binarySearch(T[] seq, T key, int lo, int hi) {
+    private static <E extends Comparable<? super E>> int binarySearch(E[] seq, E key, int lo, int hi) {
         if (lo > hi) return -1;
 
         int mid = lo + (hi - lo) / 2;
@@ -75,7 +75,7 @@ public final class Arrays {
             return mid;
     }
 
-    private static <T extends Comparable<? super T>> void insertionSort(T[] seq, int lo, int hi) {
+    private static <E extends Comparable<? super E>> void insertionSort(E[] seq, int lo, int hi) {
         if (isTriviallySorted(seq, lo, hi)) return;
 
         // Loop invariant: seq[0..j-1] is always sorted
@@ -88,7 +88,7 @@ public final class Arrays {
         }
     }
 
-    private static <T extends Comparable<? super T>> void mergeSort(T[] seq, T[] auxSeq, int lo, int hi) {
+    private static <E extends Comparable<? super E>> void mergeSort(E[] seq, E[] auxSeq, int lo, int hi) {
         if (isTriviallySorted(seq, lo, hi)) return;
 
         int mid = lo + (hi - lo) / 2;
@@ -97,7 +97,7 @@ public final class Arrays {
         merge(seq, auxSeq, lo, mid, hi);
     }
 
-    private static <T extends Comparable<? super T>> void bestSort(T[] seq, T[] auxSeq, int lo, int hi) {
+    private static <E extends Comparable<? super E>> void bestSort(E[] seq, E[] auxSeq, int lo, int hi) {
         final int altSortThreshold = 7;
         int elementsToSort = hi - lo + 1;
         if (elementsToSort > altSortThreshold)
@@ -106,7 +106,7 @@ public final class Arrays {
             insertionSort(seq, lo, hi);
     }
 
-    private static <T extends Comparable<? super T>> void merge(T[] seq, T[] auxSeq, int lo, int mid, int hi) {
+    private static <E extends Comparable<? super E>> void merge(E[] seq, E[] auxSeq, int lo, int mid, int hi) {
         assert isSorted(seq, lo, mid);
         assert isSorted(seq, mid + 1, hi);
 
@@ -124,7 +124,7 @@ public final class Arrays {
         }
     }
 
-    private static <T extends Comparable<? super T>> void quickSort(T[] seq, int lo, int hi) {
+    private static <E extends Comparable<? super E>> void quickSort(E[] seq, int lo, int hi) {
         if (lo >= hi) return;
 
         swap(seq, pivot(seq, lo, hi), hi);
@@ -139,7 +139,7 @@ public final class Arrays {
         return lo + (hi - lo) / 2;
     }
 
-    private static <T extends Comparable<? super T>> int partition(T[] seq, int lo, int hi, T pivot) {
+    private static <E extends Comparable<? super E>> int partition(E[] seq, int lo, int hi, E pivot) {
         int i = lo;
         int j = hi;
         while (i <= j) {

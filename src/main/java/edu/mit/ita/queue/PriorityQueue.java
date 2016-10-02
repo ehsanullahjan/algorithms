@@ -11,10 +11,10 @@ import static edu.mit.ita.util.Comparables.le;
 import static java.lang.Math.max;
 import static java.lang.System.arraycopy;
 
-public abstract class PriorityQueue<T extends Comparable<? super T>> implements Queue<T> {
+public abstract class PriorityQueue<E extends Comparable<? super E>> implements Queue<E> {
     private static final int DEFAULT_CAPACITY = 15;
 
-    protected T[] elements;
+    protected E[] elements;
     protected int size;
 
     protected PriorityQueue() {
@@ -22,7 +22,7 @@ public abstract class PriorityQueue<T extends Comparable<? super T>> implements 
         size = 0;
     }
 
-    protected PriorityQueue(T[] items) {
+    protected PriorityQueue(E[] items) {
         elements = newArray(items.length);
         arraycopy(items, 0, elements, 0, items.length);
         size = items.length;
@@ -30,24 +30,24 @@ public abstract class PriorityQueue<T extends Comparable<? super T>> implements 
         heapify();
     }
 
-    public static <T extends Comparable<? super T>> PriorityQueue<T> newMinPriorityQueue() {
+    public static <E extends Comparable<? super E>> PriorityQueue<E> newMinPriorityQueue() {
         return new MinPriorityQueue<>();
     }
 
-    public static <T extends Comparable<? super T>> PriorityQueue<T> newMinPriorityQueue(T[] items) {
+    public static <E extends Comparable<? super E>> PriorityQueue<E> newMinPriorityQueue(E[] items) {
         return new MinPriorityQueue<>(items);
     }
 
-    public static <T extends Comparable<? super T>> PriorityQueue<T> newMaxPriorityQueue() {
+    public static <E extends Comparable<? super E>> PriorityQueue<E> newMaxPriorityQueue() {
         return new MaxPriorityQueue<>();
     }
 
-    public static <T extends Comparable<? super T>> PriorityQueue<T> newMaxPriorityQueue(T[] items) {
+    public static <E extends Comparable<? super E>> PriorityQueue<E> newMaxPriorityQueue(E[] items) {
         return new MaxPriorityQueue<>(items);
     }
 
     @Override
-    public void enqueue(T element) {
+    public void enqueue(E element) {
         if (isFull())
             resize(elements.length * 2);
 
@@ -56,8 +56,8 @@ public abstract class PriorityQueue<T extends Comparable<? super T>> implements 
     }
 
     @Override
-    public T dequeue() {
-        T element = peek();
+    public E dequeue() {
+        E element = peek();
         size--;
 
         if (!isEmpty()) {
@@ -69,7 +69,7 @@ public abstract class PriorityQueue<T extends Comparable<? super T>> implements 
     }
 
     @Override
-    public T peek() {
+    public E peek() {
         if (isEmpty())
             throw new NoSuchElementException();
 
@@ -87,7 +87,7 @@ public abstract class PriorityQueue<T extends Comparable<? super T>> implements 
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return new ArrayQueueIterator<>(elements, 0, size);
     }
 
@@ -153,21 +153,21 @@ public abstract class PriorityQueue<T extends Comparable<? super T>> implements 
     }
 
     private void resize(int capacity) {
-        T[] temp = newArray(capacity);
+        E[] temp = newArray(capacity);
         arraycopy(elements, 0, temp, 0, elements.length);
         elements = temp;
     }
 
     @SuppressWarnings("unchecked")
-    private T[] newArray(int capacity) {
-        return (T[])new Comparable<?>[max(capacity, DEFAULT_CAPACITY)];
+    private E[] newArray(int capacity) {
+        return (E[])new Comparable<?>[max(capacity, DEFAULT_CAPACITY)];
     }
 
-    private static final class MinPriorityQueue<T extends Comparable<? super T>> extends PriorityQueue<T> {
+    private static final class MinPriorityQueue<E extends Comparable<? super E>> extends PriorityQueue<E> {
         public MinPriorityQueue() {
         }
 
-        public MinPriorityQueue(T[] items) {
+        public MinPriorityQueue(E[] items) {
             super(items);
         }
 
@@ -177,12 +177,12 @@ public abstract class PriorityQueue<T extends Comparable<? super T>> implements 
         }
     }
 
-    private static final class MaxPriorityQueue<T extends Comparable<? super T>> extends PriorityQueue<T> {
+    private static final class MaxPriorityQueue<E extends Comparable<? super E>> extends PriorityQueue<E> {
         public MaxPriorityQueue() {
             super();
         }
 
-        public MaxPriorityQueue(T[] items) {
+        public MaxPriorityQueue(E[] items) {
             super(items);
         }
 

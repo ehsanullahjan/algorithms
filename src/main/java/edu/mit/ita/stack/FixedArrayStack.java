@@ -5,18 +5,18 @@ import edu.mit.ita.adt.Stack;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class FixedArrayStack<T> implements Stack<T> {
-    private final T[] elements;
+public class FixedArrayStack<E> implements Stack<E> {
+    private final E[] elements;
     private int top;
 
     @SuppressWarnings("unchecked")
     public FixedArrayStack(int capacity) {
-        this.elements = (T[])new Object[capacity];
+        this.elements = (E[])new Object[capacity];
         this.top = -1;
     }
 
     @Override
-    public void push(T element) {
+    public void push(E element) {
         if (isFull())
             throw new IllegalStateException("Stack overflow");
 
@@ -24,14 +24,14 @@ public class FixedArrayStack<T> implements Stack<T> {
     }
 
     @Override
-    public T pop() {
-        T element = peek();
+    public E pop() {
+        E element = peek();
         elements[top--] = null;
         return element;
     }
 
     @Override
-    public T peek() {
+    public E peek() {
         if (isEmpty())
             throw new NoSuchElementException();
 
@@ -53,7 +53,7 @@ public class FixedArrayStack<T> implements Stack<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return new ArrayStackIterator<>(elements, top);
     }
 }

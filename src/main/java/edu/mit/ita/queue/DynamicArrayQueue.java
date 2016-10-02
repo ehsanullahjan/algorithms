@@ -5,8 +5,8 @@ import edu.mit.ita.adt.Queue;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DynamicArrayQueue<T> implements Queue<T> {
-    private T[] elements;
+public class DynamicArrayQueue<E> implements Queue<E> {
+    private E[] elements;
     private int front;
     private int size;
 
@@ -16,13 +16,13 @@ public class DynamicArrayQueue<T> implements Queue<T> {
 
     @SuppressWarnings("unchecked")
     public DynamicArrayQueue(int initialCapacity) {
-        this.elements = (T[])new Object[initialCapacity];
+        this.elements = (E[])new Object[initialCapacity];
         this.front = 0;
         this.size = 0;
     }
 
     @Override
-    public void enqueue(T element) {
+    public void enqueue(E element) {
         if (loadFactor() >= 1.0F)
             resize(capacity() * 2);
 
@@ -32,8 +32,8 @@ public class DynamicArrayQueue<T> implements Queue<T> {
     }
 
     @Override
-    public T dequeue() {
-        T element = peek();
+    public E dequeue() {
+        E element = peek();
         elements[front] = null;
         front = (front + 1) % capacity();
         size--;
@@ -45,7 +45,7 @@ public class DynamicArrayQueue<T> implements Queue<T> {
     }
 
     @Override
-    public T peek() {
+    public E peek() {
         if (isEmpty())
             throw new NoSuchElementException();
 
@@ -67,7 +67,7 @@ public class DynamicArrayQueue<T> implements Queue<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return new ArrayQueueIterator<>(elements, front, size);
     }
 
@@ -77,7 +77,7 @@ public class DynamicArrayQueue<T> implements Queue<T> {
 
     @SuppressWarnings("unchecked")
     private void resize(int capacity) {
-        T[] temp = (T[])new Object[capacity];
+        E[] temp = (E[])new Object[capacity];
         for (int i = 0, j = front; i < size; i++, j = (j + 1) % capacity()) {
             temp[i] = elements[j];
         }

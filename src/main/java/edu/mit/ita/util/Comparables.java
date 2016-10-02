@@ -4,14 +4,14 @@ public final class Comparables {
     private Comparables() {
     }
 
-    public static <T extends Comparable<? super T>> T min(T[] seq) {
+    public static <E extends Comparable<? super E>> E min(E[] seq) {
         return min(seq, 0, seq.length - 1);
     }
 
-    public static <T extends Comparable<? super T>> T min(T[] seq, int lo, int hi) {
+    public static <E extends Comparable<? super E>> E min(E[] seq, int lo, int hi) {
         validate(seq, lo, hi);
 
-        T x = seq[lo];
+        E x = seq[lo];
         for (int i = lo + 1; i <= hi; i++) {
             if (lt(seq[i], x)) {
                 x = seq[i];
@@ -21,14 +21,14 @@ public final class Comparables {
         return x;
     }
 
-    public static <T extends Comparable<? super T>> T max(T[] seq) {
+    public static <E extends Comparable<? super E>> E max(E[] seq) {
         return max(seq, 0, seq.length - 1);
     }
 
-    public static <T extends Comparable<? super T>> T max(T[] seq, int lo, int hi) {
+    public static <E extends Comparable<? super E>> E max(E[] seq, int lo, int hi) {
         validate(seq, lo, hi);
 
-        T x = seq[lo];
+        E x = seq[lo];
         for (int i = lo + 1; i <= hi; i++) {
             if (gt(seq[i], x)) {
                 x = seq[i];
@@ -38,27 +38,27 @@ public final class Comparables {
         return x;
     }
 
-    public static <T extends Comparable<? super T>> boolean eq(T a, T b) {
+    public static <E extends Comparable<? super E>> boolean eq(E a, E b) {
         return a.compareTo(b) == 0;
     }
 
-    public static <T extends Comparable<? super T>> boolean lt(T a, T b) {
+    public static <E extends Comparable<? super E>> boolean lt(E a, E b) {
         return a.compareTo(b) < 0;
     }
 
-    public static <T extends Comparable<? super T>> boolean le(T a, T b) {
+    public static <E extends Comparable<? super E>> boolean le(E a, E b) {
         return a.compareTo(b) <= 0;
     }
 
-    public static <T extends Comparable<? super T>> boolean gt(T a, T b) {
+    public static <E extends Comparable<? super E>> boolean gt(E a, E b) {
         return a.compareTo(b) > 0;
     }
 
-    public static <T extends Comparable<? super T>> boolean ge(T a, T b) {
+    public static <E extends Comparable<? super E>> boolean ge(E a, E b) {
         return a.compareTo(b) >= 0;
     }
 
-    private static <T extends Comparable<? super T>> void validate(T[] seq, int lo, int hi) {
+    private static <E extends Comparable<? super E>> void validate(E[] seq, int lo, int hi) {
         if (seq == null || seq.length == 0)
             throw new IllegalArgumentException("seq is null or empty");
 

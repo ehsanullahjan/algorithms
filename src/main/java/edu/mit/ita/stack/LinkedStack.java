@@ -5,8 +5,8 @@ import edu.mit.ita.adt.Stack;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedStack<T> implements Stack<T> {
-    private final Node<T> head;
+public class LinkedStack<E> implements Stack<E> {
+    private final Node<E> head;
     private int size;
 
     public LinkedStack() {
@@ -15,16 +15,16 @@ public class LinkedStack<T> implements Stack<T> {
     }
 
     @Override
-    public void push(T element) {
-        Node<T> top = new Node<>(element);
+    public void push(E element) {
+        Node<E> top = new Node<>(element);
         top.next = head.next;
         head.next = top;
         size++;
     }
 
     @Override
-    public T pop() {
-        Node<T> top = peek0();
+    public E pop() {
+        Node<E> top = peek0();
         head.next = top.next;
         size--;
 
@@ -32,7 +32,7 @@ public class LinkedStack<T> implements Stack<T> {
     }
 
     @Override
-    public T peek() {
+    public E peek() {
         return peek0().element;
     }
 
@@ -47,9 +47,9 @@ public class LinkedStack<T> implements Stack<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private Node<T> top = head.next;
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private Node<E> top = head.next;
 
             @Override
             public boolean hasNext() {
@@ -57,33 +57,33 @@ public class LinkedStack<T> implements Stack<T> {
             }
 
             @Override
-            public T next() {
+            public E next() {
                 if (!hasNext())
                     throw new NoSuchElementException();
 
-                T element = top.element;
+                E element = top.element;
                 top = top.next;
                 return element;
             }
         };
     }
 
-    private Node<T> peek0() {
+    private Node<E> peek0() {
         if (isEmpty())
             throw new NoSuchElementException();
 
         return head.next;
     }
 
-    private static final class Node<T> {
-        final T element;
-        Node<T> next;
+    private static final class Node<E> {
+        final E element;
+        Node<E> next;
 
-        Node(T element) {
+        Node(E element) {
             this.element = element;
         }
 
-        static <T> Node<T> empty() {
+        static <E> Node<E> empty() {
             return new Node<>(null);
         }
     }

@@ -1,9 +1,9 @@
 package edu.mit.ita.adt;
 
-public interface Collection<T> extends Iterable<T> {
-    void add(T element);
-    boolean remove(T element);
-    boolean contains(T element);
+public interface Collection<E> extends Iterable<E> {
+    void add(E element);
+    boolean remove(E element);
+    boolean contains(E element);
     void clear();
     int size();
     boolean isEmpty();

@@ -5,8 +5,8 @@ import edu.mit.ita.adt.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedBag<T> implements Collection<T> {
-    private final Node<T> head;
+public class LinkedBag<E> implements Collection<E> {
+    private final Node<E> head;
     private int size;
 
     public LinkedBag() {
@@ -15,20 +15,20 @@ public class LinkedBag<T> implements Collection<T> {
     }
 
     @Override
-    public void add(T element) {
-        Node<T> node = new Node<>(element);
+    public void add(E element) {
+        Node<E> node = new Node<>(element);
         node.next = head.next;
         head.next = node;
         size++;
     }
 
     @Override
-    public boolean remove(T element) {
+    public boolean remove(E element) {
         if (element == null || isEmpty())
             return false;
 
-        Node<T> i = head;
-        Node<T> j = head.next;
+        Node<E> i = head;
+        Node<E> j = head.next;
         while (j != null) {
             if (element.equals(j.element)) {
                 i.next = j.next;
@@ -44,11 +44,11 @@ public class LinkedBag<T> implements Collection<T> {
     }
 
     @Override
-    public boolean contains(T element) {
+    public boolean contains(E element) {
         if (element == null)
             return false;
 
-        for (Node<T> node = head.next; node != null; node = node.next) {
+        for (Node<E> node = head.next; node != null; node = node.next) {
             if (element.equals(node.element)) {
                 return true;
             }
@@ -74,9 +74,9 @@ public class LinkedBag<T> implements Collection<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private Node<T> current = head.next;
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private Node<E> current = head.next;
 
             @Override
             public boolean hasNext() {
@@ -84,26 +84,26 @@ public class LinkedBag<T> implements Collection<T> {
             }
 
             @Override
-            public T next() {
+            public E next() {
                 if (!hasNext())
                     throw new NoSuchElementException();
 
-                Node<T> x = current;
+                Node<E> x = current;
                 current = current.next;
                 return x.element;
             }
         };
     }
 
-    private static final class Node<T> {
-        final T element;
-        Node<T> next;
+    private static final class Node<E> {
+        final E element;
+        Node<E> next;
 
-        Node(T element) {
+        Node(E element) {
             this.element = element;
         }
 
-        static <T> Node<T> sentinel() {
+        static <E> Node<E> sentinel() {
             return new Node<>(null);
         }
     }

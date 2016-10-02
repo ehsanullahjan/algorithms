@@ -5,9 +5,9 @@ import edu.mit.ita.adt.Queue;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedQueue<T> implements Queue<T> {
-    private final Node<T> front;
-    private Node<T> back;
+public class LinkedQueue<E> implements Queue<E> {
+    private final Node<E> front;
+    private Node<E> back;
     private int size;
 
     public LinkedQueue() {
@@ -17,16 +17,16 @@ public class LinkedQueue<T> implements Queue<T> {
     }
 
     @Override
-    public void enqueue(T element) {
-        Node<T> node = new Node<>(element);
+    public void enqueue(E element) {
+        Node<E> node = new Node<>(element);
         back.next = node;
         back = node;
         size++;
     }
 
     @Override
-    public T dequeue() {
-        Node<T> node = peek0();
+    public E dequeue() {
+        Node<E> node = peek0();
         front.next = node.next;
         size--;
 
@@ -37,7 +37,7 @@ public class LinkedQueue<T> implements Queue<T> {
     }
 
     @Override
-    public T peek() {
+    public E peek() {
         return peek0().element;
     }
 
@@ -52,9 +52,9 @@ public class LinkedQueue<T> implements Queue<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private Node<T> node = front.next;
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private Node<E> node = front.next;
 
             @Override
             public boolean hasNext() {
@@ -62,33 +62,33 @@ public class LinkedQueue<T> implements Queue<T> {
             }
 
             @Override
-            public T next() {
+            public E next() {
                 if (!hasNext())
                     throw new NoSuchElementException();
 
-                T element = node.element;
+                E element = node.element;
                 node = node.next;
                 return element;
             }
         };
     }
 
-    private Node<T> peek0() {
+    private Node<E> peek0() {
         if (isEmpty())
             throw new NoSuchElementException();
 
         return front.next;
     }
 
-    private static final class Node<T> {
-        final T element;
-        Node<T> next;
+    private static final class Node<E> {
+        final E element;
+        Node<E> next;
 
-        Node(T element) {
+        Node(E element) {
             this.element = element;
         }
 
-        static <T> Node<T> empty() {
+        static <E> Node<E> empty() {
             return new Node<>(null);
         }
     }

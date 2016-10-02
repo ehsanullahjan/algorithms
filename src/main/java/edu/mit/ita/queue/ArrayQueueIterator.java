@@ -3,13 +3,13 @@ package edu.mit.ita.queue;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-class ArrayQueueIterator<T> implements Iterator<T> {
-    private final T[] elements;
+class ArrayQueueIterator<E> implements Iterator<E> {
+    private final E[] elements;
     private final int front;
     private final int size;
     private int index;
 
-    ArrayQueueIterator(T[] elements, int front, int size) {
+    ArrayQueueIterator(E[] elements, int front, int size) {
         this.elements = elements;
         this.front = front;
         this.size = size;
@@ -22,7 +22,7 @@ class ArrayQueueIterator<T> implements Iterator<T> {
     }
 
     @Override
-    public T next() {
+    public E next() {
         if (!hasNext())
             throw new NoSuchElementException();
 

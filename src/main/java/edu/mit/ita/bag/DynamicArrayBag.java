@@ -8,8 +8,8 @@ import java.util.NoSuchElementException;
 
 import static java.lang.System.arraycopy;
 
-public class DynamicArrayBag<T> implements Collection<T> {
-    private T[] elements;
+public class DynamicArrayBag<E> implements Collection<E> {
+    private E[] elements;
     private int index;
 
     public DynamicArrayBag() {
@@ -18,12 +18,12 @@ public class DynamicArrayBag<T> implements Collection<T> {
 
     @SuppressWarnings("unchecked")
     public DynamicArrayBag(int initialCapacity) {
-        this.elements = (T[])new Object[initialCapacity];
+        this.elements = (E[])new Object[initialCapacity];
         this.index = 0;
     }
 
     @Override
-    public void add(T element) {
+    public void add(E element) {
         if (loadFactor() >= 1.0F)
             resize(capacity() * 2);
 
@@ -31,7 +31,7 @@ public class DynamicArrayBag<T> implements Collection<T> {
     }
 
     @Override
-    public boolean remove(T element) {
+    public boolean remove(E element) {
         int i = indexOf(element);
         if (i < 0) return false;
 
@@ -45,7 +45,7 @@ public class DynamicArrayBag<T> implements Collection<T> {
     }
 
     @Override
-    public boolean contains(T element) {
+    public boolean contains(E element) {
         return indexOf(element) >= 0;
     }
 
@@ -73,8 +73,8 @@ public class DynamicArrayBag<T> implements Collection<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
             private int i = 0;
             private final int size = size();
 
@@ -84,7 +84,7 @@ public class DynamicArrayBag<T> implements Collection<T> {
             }
 
             @Override
-            public T next() {
+            public E next() {
                 if (!hasNext())
                     throw new NoSuchElementException();
 
@@ -96,7 +96,7 @@ public class DynamicArrayBag<T> implements Collection<T> {
         };
     }
 
-    private int indexOf(T element) {
+    private int indexOf(E element) {
         if (isEmpty() || element == null)
             return -1;
 
@@ -115,7 +115,7 @@ public class DynamicArrayBag<T> implements Collection<T> {
 
     @SuppressWarnings({"unchecked"})
     private void resize(int capacity) {
-        T[] temp = (T[])new Object[capacity];
+        E[] temp = (E[])new Object[capacity];
         arraycopy(elements, 0, temp, 0, size());
         elements = temp;
     }

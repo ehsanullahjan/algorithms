@@ -7,8 +7,8 @@ import java.util.NoSuchElementException;
 
 import static java.lang.System.arraycopy;
 
-public class DynamicArrayStack<T> implements Stack<T> {
-    private T[] elements;
+public class DynamicArrayStack<E> implements Stack<E> {
+    private E[] elements;
     private int top;
 
     public DynamicArrayStack() {
@@ -17,12 +17,12 @@ public class DynamicArrayStack<T> implements Stack<T> {
 
     @SuppressWarnings("unchecked")
     public DynamicArrayStack(int initialCapacity) {
-        this.elements = (T[])new Object[initialCapacity];
+        this.elements = (E[])new Object[initialCapacity];
         this.top = -1;
     }
 
     @Override
-    public void push(T element) {
+    public void push(E element) {
         if (loadFactor() >= 1.0F)
             resize(capacity() * 2);
 
@@ -30,8 +30,8 @@ public class DynamicArrayStack<T> implements Stack<T> {
     }
 
     @Override
-    public T pop() {
-        T element = peek();
+    public E pop() {
+        E element = peek();
         elements[top--] = null;
 
         if (loadFactor() <= 0.25F)
@@ -41,7 +41,7 @@ public class DynamicArrayStack<T> implements Stack<T> {
     }
 
     @Override
-    public T peek() {
+    public E peek() {
         if (isEmpty())
             throw new NoSuchElementException();
 
@@ -63,7 +63,7 @@ public class DynamicArrayStack<T> implements Stack<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return new ArrayStackIterator<>(elements, top);
     }
 
@@ -73,7 +73,7 @@ public class DynamicArrayStack<T> implements Stack<T> {
 
     @SuppressWarnings({"unchecked"})
     private void resize(int capacity) {
-        T[] temp = (T[])new Object[capacity];
+        E[] temp = (E[])new Object[capacity];
         arraycopy(elements, 0, temp, 0, size());
         elements = temp;
     }
